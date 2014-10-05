@@ -12,11 +12,12 @@ import org.w3c.dom.NodeList;
 import com.google.common.base.Strings;
 
 // TODO error checking of all strings required
+// First argument should be the path of the config file
 public class Parser {
 	private static Input input = new Input();
 
 	public static void main(String []args){
-		String configFilePath = "C:\\Users\\AMIT\\Dropbox\\BTP\\config.xml";
+		String configFilePath = args[0];
 
 		try {
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -27,6 +28,8 @@ public class Parser {
 			NodeList nodeList = doc.getDocumentElement().getChildNodes();			
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				Node node = nodeList.item(i);
+				
+				// parse input
 				if (node.getNodeName().equalsIgnoreCase("input")) {
 					NodeList children = node.getChildNodes();
 					for (int j = 0; j < nodeList.getLength(); j++) {
@@ -55,20 +58,17 @@ public class Parser {
 						}
 					}
 				}
-				
+			
+				// parse main component
 				if (node.getNodeName().equalsIgnoreCase("component")) {
 					// TODO implementation left
 				}
 				
+				// parse the output
 				if (node.getNodeName().equalsIgnoreCase("output")) {
 					// TODO implementation left
 				}
 			}
-			// parse input
-
-			// parse main component
-
-			// parse the output
 		} catch (Exception e) {
 			// TODO add logger library
 			e.printStackTrace();

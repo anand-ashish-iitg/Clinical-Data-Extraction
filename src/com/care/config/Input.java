@@ -17,6 +17,6 @@ public class Input {
 	}
 	
 	public void setPath(String path) {
-		// this.path = new String("hello");
+		this.path = path;
 	}
 }

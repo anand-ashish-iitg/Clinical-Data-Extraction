@@ -14,7 +14,7 @@ import com.google.common.base.Strings;
 // TODO error checking of all strings required
 // First argument should be the path of the config file
 public class Parser {
-	private static Input input = new Input();
+	private static Input input;
 
 	public static void main(String []args){
 		String configFilePath = args[0];
@@ -31,32 +31,7 @@ public class Parser {
 				
 				// parse input
 				if (node.getNodeName().equalsIgnoreCase("input")) {
-					NodeList children = node.getChildNodes();
-					for (int j = 0; j < nodeList.getLength(); j++) {
-						Node childOfInput = children.item(j);
-						if(childOfInput == null || Strings.isNullOrEmpty(childOfInput.getNodeName()))
-							continue;
-						
-						// parsing type of the input
-						if (childOfInput.getNodeName().equalsIgnoreCase("type")) {
-							String typeValue = childOfInput.getTextContent();
-							if(typeValue.equalsIgnoreCase("file"))
-								input.setType(InputType.FILE);
-							else if(typeValue.equalsIgnoreCase("xml"))
-								input.setType(InputType.XML);
-							else{
-								// TODO throw exception
-							}
-						}
-						
-						// parsing path of the input
-						if (childOfInput.getNodeName().equalsIgnoreCase("path")) {
-							String pathValue = childOfInput.getTextContent();
-							if(!Strings.isNullOrEmpty(pathValue)){
-								input.setPath(pathValue);
-							}
-						}
-					}
+					input = InputParser.GetInput(node);
 				}
 			
 				// parse main component

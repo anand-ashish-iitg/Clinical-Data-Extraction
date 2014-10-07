@@ -5,16 +5,17 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.care.datatype.Component;
+import com.care.datatype.Input;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.google.common.base.Strings;
 
 // TODO error checking of all strings required
 // First argument should be the path of the config file
 public class Parser {
 	private static Input input;
+	private static Component component;
 
 	public static void main(String []args){
 		String configFilePath = args[0];
@@ -36,7 +37,7 @@ public class Parser {
 			
 				// parse main component
 				if (node.getNodeName().equalsIgnoreCase("component")) {
-					// TODO implementation left
+					component = ComponentParser.GetComponent(node);
 				}
 				
 				// parse the output

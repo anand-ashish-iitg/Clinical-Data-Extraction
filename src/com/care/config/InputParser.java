@@ -1,5 +1,7 @@
 package com.care.config;
 
+import com.care.datatype.Input;
+import com.care.datatype.InputType;
 import com.google.common.base.Strings;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

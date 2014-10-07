@@ -1,4 +1,4 @@
-package com.care.config;
+package com.care.datatype;
 
 public class Input {
 	private InputType type;

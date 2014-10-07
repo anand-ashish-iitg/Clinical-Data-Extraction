@@ -1,4 +1,4 @@
-package com.care.config;
+package com.care.datatype;
 
 /**
  * Created by AMIT on 7/10/14.

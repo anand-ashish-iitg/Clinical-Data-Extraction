@@ -1,4 +1,4 @@
-package com.care.platform;
+package resources;
 import com.care.framework.IPreProcessor;
 
 public class PreProcessor implements IPreProcessor {

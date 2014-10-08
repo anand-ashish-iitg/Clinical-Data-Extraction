@@ -1,13 +1,13 @@
 package com.care.platform;
 
 import com.care.datatype.Input;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.jdom2.Content;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
@@ -31,9 +31,9 @@ public class InputHandler {
 	 * @throws IOException
 	 */
 	public String ReadFile() throws IOException {
-		byte[] encoded = Files.readAllBytes(Paths.get(input.getPath()));
+		byte[] content = Files.readAllBytes(Paths.get(input.getPath()));
 
-		return new String(encoded);
+		return new String(content);
 	}
 
 	/**
@@ -47,19 +47,16 @@ public class InputHandler {
 
 		try
 		{
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new StringReader(content)));
+			Document document = new SAXBuilder().build(new InputSource(new StringReader(content)));
 
-			NodeList nodeList = doc.getDocumentElement().getChildNodes();
-			for (int i = 0; i < nodeList.getLength(); i++)
+			List<Element> rootElements = document.getRootElement().getChildren();
+			for (Element node : rootElements)
 			{
-				Node node = nodeList.item(i);
-
-				if (node.getNodeName().equalsIgnoreCase("block"))
+				if (node.getName().equalsIgnoreCase("block"))
 				{
-					String blockContent = node.getTextContent();
-					list.add(blockContent);
+					List<Content> blockContent = node.getContent();
+					// TODO fix this bug, this doesn't fetch if it further contains xml
+					list.add(new XMLOutputter().outputString(blockContent));
 				}
 			}
 		}

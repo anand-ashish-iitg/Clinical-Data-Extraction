@@ -21,39 +21,49 @@ import org.w3c.dom.NodeList;
 // TODO error checking of all strings required
 // TODO add logger library
 // First argument should be the path of the config file
-public class Main {
+public class Main
+{
 	private static Input input;
 	private static Component component;
 	private static Output output;
 
-	private static void ParseConfig(String configFilePath) throws Exception{
+	private static void ParseConfig(String configFilePath) throws Exception
+	{
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(new File(configFilePath));
 
 		//Iterating through the nodes and extracting the data.
 		NodeList nodeList = doc.getDocumentElement().getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++) {
+		for (int i = 0; i < nodeList.getLength(); i++)
+		{
 			Node node = nodeList.item(i);
 
 			// parse input
-			if (node.getNodeName().equalsIgnoreCase("input")) {
+			if (node.getNodeName().equalsIgnoreCase("input"))
+			{
 				input = InputParser.GetInput(node);
+				continue;
 			}
 
 			// parse main component
-			if (node.getNodeName().equalsIgnoreCase("component")) {
+			if (node.getNodeName().equalsIgnoreCase("component"))
+			{
 				component = ComponentParser.GetComponent(node);
+				continue;
 			}
 
 			// parse the output
-			if (node.getNodeName().equalsIgnoreCase("output")) {
+			if (node.getNodeName().equalsIgnoreCase("output"))
+			{
 				// TODO implementation left
+				continue;
 			}
 		}
 	}
 
-	private static Object ParseInputFile() throws Exception{
+	private static Object ParseInputFile() throws Exception
+	{
 		InputHandler inputHandler = new InputHandler(input);
 
 		String inputContent = inputHandler.ReadFile();
@@ -67,7 +77,8 @@ public class Main {
 		}
 	}
 
-	private static void StartPlatform(Object inputContent) throws Exception{
+	private static void StartPlatform(Object inputContent) throws Exception
+	{
 		PlatformManager manager = new PlatformManager();
 
 		manager.StartComponent(component);
@@ -75,12 +86,15 @@ public class Main {
 		// of the interface
 	}
 
-	private static void GenerateOutputFile() throws Exception{
+	private static void GenerateOutputFile() throws Exception
+	{
 		OutputHandler outputHandler = new OutputHandler(output);
 	}
 
-	public static void main(String []args){
-		if(args.length < 1){
+	public static void main(String []args)
+	{
+		if(args.length < 1)
+		{
 			System.out.println("Min 1 argument reqd");
 			// TODO throw exception
 			return;
@@ -88,7 +102,8 @@ public class Main {
 
 		String configFilePath = args[0];
 
-		try {
+		try
+		{
 			// Parsing the config.xml
 			ParseConfig(configFilePath);
 
@@ -101,7 +116,9 @@ public class Main {
 			// Write the output in the required format
 			GenerateOutputFile();
 
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		} 
 	}

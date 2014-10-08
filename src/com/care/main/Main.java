@@ -76,16 +76,16 @@ public class Main
 		}
 	}
 
-	private static void StartPlatform(Object inputContent) throws Exception
+	private static Object StartPlatform(Object inputContent) throws Exception
 	{
 		PlatformManager manager = new PlatformManager();
 
-		manager.StartComponent(component);
+		return manager.StartComponent(component, inputContent);
 		// TODO check either parseInputType or object and accordingly call function
 		// of the interface
 	}
 
-	private static void GenerateOutputFile() throws Exception
+	private static void GenerateOutputFile(Object outputContent) throws Exception
 	{
 		OutputHandler outputHandler = new OutputHandler(output);
 	}
@@ -110,10 +110,10 @@ public class Main
 			Object content = ParseInputFile();
 
 			// Starting the platform
-			StartPlatform(content);
+			Object output = StartPlatform(content);
 
 			// Write the output in the required format
-			GenerateOutputFile();
+			GenerateOutputFile(output);
 
 		}
 		catch (Exception e)

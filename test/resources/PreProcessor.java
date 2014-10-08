@@ -6,11 +6,9 @@ public class PreProcessor implements IPreProcessor
 {
 
 	@Override
-	public String PreProcess()
+	public String PreProcess(String data)
 	{
-		System.out.println("Method Called");
-
-		return "Successful !!";
+		return data.toUpperCase();
 	}
 
 }

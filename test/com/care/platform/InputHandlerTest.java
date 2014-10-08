@@ -30,7 +30,6 @@ public class InputHandlerTest
 
 		handler = new InputHandler(input);
 
-		// TODO see if better way to do this
 		try
 		{
 			handler.ReadFile();
@@ -56,7 +55,6 @@ public class InputHandlerTest
 
 		handler = new InputHandler(input);
 
-		// TODO see if better way to do this
 		try
 		{
 			String content = handler.ReadFile();
@@ -70,7 +68,7 @@ public class InputHandlerTest
 	}
 
 	@Test
-	public void ConvertValidXmlStringToList() throws Exception
+	public void ConvertValidXmlStringToList()
 	{
 		Input input = new Input();
 		input.setType(InputType.XML);
@@ -78,18 +76,12 @@ public class InputHandlerTest
 		input.setParseType(ParseInputType.LIST);
 
 		handler = new InputHandler(input);
-
-		// TODO see if better way to do this
 		try
 		{
 			String content = handler.ReadFile();
 			List<String> list = handler.ConvertXmlStringToList(content);
 
 			Assert.assertEquals(4, list.size());
-			for (String a : list)
-			{
-				System.out.println(a);
-			}
 		}
 		catch (IOException e)
 		{
@@ -100,6 +92,6 @@ public class InputHandlerTest
 	@Test
 	public void ConvertInValidXmlStringToList() throws Exception
 	{
-
+		// TODO implement after standardizing the exceptions
 	}
 }

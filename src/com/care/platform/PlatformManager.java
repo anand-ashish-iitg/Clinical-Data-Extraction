@@ -13,27 +13,28 @@ public class PlatformManager
 
 	private Object componentInstance;
 
-	private void DoWork(ComponentType componentType)
+	private Object DoWork(ComponentType componentType, Object inputContent)
 	{
 		if (componentType == ComponentType.PRE_PROCESSOR)
 		{
 			if (this.componentInstance instanceof IPreProcessor)
 			{
-				// TODO call specific method as specified in config
-				System.out.println("Successful");
-				IPreProcessor objT = (IPreProcessor) this.componentInstance;
+				IPreProcessor preProcessor = (IPreProcessor) this.componentInstance;
 
-				System.out.print(objT.PreProcess());
+				// TODO call specific method as specified in config
+				return preProcessor.PreProcess((String) inputContent);
 			}
 			else
 			{
 				// TODO throw exception
-				// log errors
+				// TODO log errors
 			}
 		}
+
+		return null;
 	}
 
-	public void StartComponent(Component component)
+	public Object StartComponent(Component component, Object inputContent)
 	{
 		// Create a File object on the root of the directory containing the class file
 		File file = new File(component.getPath());
@@ -52,11 +53,14 @@ public class PlatformManager
 			this.componentInstance = componentClass.newInstance();
 
 			// Doing component type specific work
-			this.DoWork(component.getType());
+			return this.DoWork(component.getType(), inputContent);
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			// TODO throw exception
 		}
+
+		return null;
 	}
 }

@@ -68,6 +68,7 @@ public class InputHandler
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			// TODO throw exception
 		}
 
 		return list;

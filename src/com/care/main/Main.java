@@ -2,6 +2,7 @@ package com.care.main;
 
 import com.care.config.ComponentParser;
 import com.care.config.InputParser;
+import com.care.config.OutputParser;
 import com.care.datatype.Component;
 import com.care.datatype.Input;
 import com.care.datatype.Output;
@@ -55,7 +56,7 @@ public class Main
 			// parse the output
 			if (node.getNodeName().equalsIgnoreCase("output"))
 			{
-				// TODO implementation left
+				output = OutputParser.GetOutput(node);
 				continue;
 			}
 		}
@@ -88,6 +89,9 @@ public class Main
 	private static void GenerateOutputFile(Object outputContent) throws Exception
 	{
 		OutputHandler outputHandler = new OutputHandler(output);
+
+		// TODO make this more generic
+		outputHandler.WriteStringToFile((String) outputContent);
 	}
 
 	public static void main(String[] args)

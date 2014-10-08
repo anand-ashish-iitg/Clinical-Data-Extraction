@@ -9,6 +9,10 @@ import com.care.config.ComponentParser;
 import com.care.config.InputParser;
 import com.care.datatype.Component;
 import com.care.datatype.Input;
+import com.care.datatype.Output;
+import com.care.datatype.ParseInputType;
+import com.care.platform.InputHandler;
+import com.care.platform.OutputHandler;
 import com.care.platform.PlatformManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -20,6 +24,7 @@ import org.w3c.dom.NodeList;
 public class Main {
 	private static Input input;
 	private static Component component;
+	private static Output output;
 
 	private static void ParseConfig(String configFilePath) throws Exception{
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -48,10 +53,30 @@ public class Main {
 		}
 	}
 
-	private static void StartPlatform() throws Exception{
+	private static Object ParseInputFile() throws Exception{
+		InputHandler inputHandler = new InputHandler(input);
+
+		String inputContent = inputHandler.ReadFile();
+		if(input.getParseType() == ParseInputType.LIST)
+		{
+			return inputHandler.ConvertXmlStringToList(inputContent);
+		}
+		else
+		{
+			return inputContent;
+		}
+	}
+
+	private static void StartPlatform(Object inputContent) throws Exception{
 		PlatformManager manager = new PlatformManager();
 
 		manager.StartComponent(component);
+		// TODO check either parseInputType or object and accordingly call function
+		// of the interface
+	}
+
+	private static void GenerateOutputFile() throws Exception{
+		OutputHandler outputHandler = new OutputHandler(output);
 	}
 
 	public static void main(String []args){
@@ -67,12 +92,15 @@ public class Main {
 			// Parsing the config.xml
 			ParseConfig(configFilePath);
 
-			// TODO Get the input from the format
+			// Get the input from the format
+			Object content = ParseInputFile();
 
 			// Starting the platform
-			StartPlatform();
+			StartPlatform(content);
 
-			// TODO Write the output in the required format
+			// Write the output in the required format
+			GenerateOutputFile();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

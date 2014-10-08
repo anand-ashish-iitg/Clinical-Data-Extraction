@@ -1,10 +1,5 @@
 package com.care.main;
 
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import com.care.config.ComponentParser;
 import com.care.config.InputParser;
 import com.care.datatype.Component;
@@ -17,6 +12,10 @@ import com.care.platform.PlatformManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 
 // TODO error checking of all strings required
 // TODO add logger library
@@ -67,7 +66,7 @@ public class Main
 		InputHandler inputHandler = new InputHandler(input);
 
 		String inputContent = inputHandler.ReadFile();
-		if(input.getParseType() == ParseInputType.LIST)
+		if (input.getParseType() == ParseInputType.LIST)
 		{
 			return inputHandler.ConvertXmlStringToList(inputContent);
 		}
@@ -91,9 +90,9 @@ public class Main
 		OutputHandler outputHandler = new OutputHandler(output);
 	}
 
-	public static void main(String []args)
+	public static void main(String[] args)
 	{
-		if(args.length < 1)
+		if (args.length < 1)
 		{
 			System.out.println("Min 1 argument reqd");
 			// TODO throw exception
@@ -120,6 +119,6 @@ public class Main
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		} 
+		}
 	}
 }

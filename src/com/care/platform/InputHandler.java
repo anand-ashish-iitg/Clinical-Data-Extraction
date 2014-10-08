@@ -18,19 +18,23 @@ import java.util.List;
 /**
  * Created by AMIT on 8/10/14.
  */
-public class InputHandler {
+public class InputHandler
+{
 	private Input input;
 
-	public InputHandler(Input input){
+	public InputHandler(Input input)
+	{
 		this.input = input;
 	}
 
 	/**
 	 * Reads file into a string
+	 *
 	 * @return
 	 * @throws IOException
 	 */
-	public String ReadFile() throws IOException {
+	public String ReadFile() throws IOException
+	{
 		byte[] content = Files.readAllBytes(Paths.get(input.getPath()));
 
 		return new String(content);
@@ -39,10 +43,12 @@ public class InputHandler {
 	/**
 	 * Converts string to List<string>
 	 * separated by <block></block>
+	 *
 	 * @param content valid XMLString
 	 * @return List<String>
 	 */
-	public List<String> ConvertXmlStringToList(String content){
+	public List<String> ConvertXmlStringToList(String content)
+	{
 		List<String> list = new ArrayList<String>();
 
 		try
@@ -55,7 +61,6 @@ public class InputHandler {
 				if (node.getName().equalsIgnoreCase("block"))
 				{
 					List<Content> blockContent = node.getContent();
-					// TODO fix this bug, this doesn't fetch if it further contains xml
 					list.add(new XMLOutputter().outputString(blockContent));
 				}
 			}

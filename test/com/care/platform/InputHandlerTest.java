@@ -4,16 +4,11 @@ import com.care.datatype.Input;
 import com.care.datatype.InputType;
 import com.care.datatype.ParseInputType;
 import junit.framework.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by AMIT on 8/10/14.
@@ -91,7 +86,7 @@ public class InputHandlerTest
 			List<String> list = handler.ConvertXmlStringToList(content);
 
 			Assert.assertEquals(4, list.size());
-			for(String a : list)
+			for (String a : list)
 			{
 				System.out.println(a);
 			}

@@ -10,44 +10,63 @@ import org.w3c.dom.NodeList;
 /**
  * Created by AMIT on 7/10/14.
  */
-public class InputParser {
+public class InputParser
+{
 	private static Input input = new Input();
 
-	public static Input GetInput(Node node){
+	public static Input GetInput(Node node)
+	{
 		NodeList children = node.getChildNodes();
-		for (int j = 0; j < children.getLength(); j++) {
+		for (int j = 0; j < children.getLength(); j++)
+		{
 			Node childOfInput = children.item(j);
-			if(childOfInput == null || Strings.isNullOrEmpty(childOfInput.getNodeName()))
+			if (childOfInput == null || Strings.isNullOrEmpty(childOfInput.getNodeName()))
+			{
 				continue;
+			}
 
 			// parsing type of the input
-			if (childOfInput.getNodeName().equalsIgnoreCase("type")) {
+			if (childOfInput.getNodeName().equalsIgnoreCase("type"))
+			{
 				String typeValue = childOfInput.getTextContent();
-				if(typeValue.equalsIgnoreCase("file"))
+				if (typeValue.equalsIgnoreCase("file"))
+				{
 					input.setType(InputType.FILE);
-				else if(typeValue.equalsIgnoreCase("xml"))
+				}
+				else if (typeValue.equalsIgnoreCase("xml"))
+				{
 					input.setType(InputType.XML);
-				else{
+				}
+				else
+				{
 					// TODO throw exception
 				}
 			}
 
 			// parsing path of the input
-			if (childOfInput.getNodeName().equalsIgnoreCase("path")) {
+			if (childOfInput.getNodeName().equalsIgnoreCase("path"))
+			{
 				String pathValue = childOfInput.getTextContent();
-				if(!Strings.isNullOrEmpty(pathValue)){
+				if (!Strings.isNullOrEmpty(pathValue))
+				{
 					input.setPath(pathValue);
 				}
 			}
 
 			// parsing input parse type
-			if (childOfInput.getNodeName().equalsIgnoreCase("parseType")) {
+			if (childOfInput.getNodeName().equalsIgnoreCase("parseType"))
+			{
 				String parseType = childOfInput.getTextContent();
-				if(parseType.equalsIgnoreCase("string"))
+				if (parseType.equalsIgnoreCase("string"))
+				{
 					input.setParseType(ParseInputType.STRING);
-				else if(parseType.equalsIgnoreCase("list"))
+				}
+				else if (parseType.equalsIgnoreCase("list"))
+				{
 					input.setParseType(ParseInputType.LIST);
-				else{
+				}
+				else
+				{
 					// TODO throw exception
 				}
 			}

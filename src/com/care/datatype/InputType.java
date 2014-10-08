@@ -1,6 +1,7 @@
 package com.care.datatype;
 
-public enum InputType {
+public enum InputType
+{
 	FILE,
 	XML
 }

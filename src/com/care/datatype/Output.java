@@ -6,6 +6,7 @@ package com.care.datatype;
 public class Output {
 	private OutputType type;
 	private String path;
+	private GenerateOutputType generateType;
 
 	public OutputType getType() {
 		return type;
@@ -21,5 +22,13 @@ public class Output {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public GenerateOutputType getGenerateType() {
+		return generateType;
+	}
+
+	public void setGenerateType(GenerateOutputType generateType) {
+		this.generateType = generateType;
 	}
 }

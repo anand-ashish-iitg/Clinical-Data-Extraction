@@ -2,6 +2,7 @@ package com.care.config;
 
 import com.care.datatype.Input;
 import com.care.datatype.InputType;
+import com.care.datatype.ParseInputType;
 import com.google.common.base.Strings;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -36,6 +37,18 @@ public class InputParser {
 				String pathValue = childOfInput.getTextContent();
 				if(!Strings.isNullOrEmpty(pathValue)){
 					input.setPath(pathValue);
+				}
+			}
+
+			// parsing input parse type
+			if (childOfInput.getNodeName().equalsIgnoreCase("parseType")) {
+				String parseType = childOfInput.getTextContent();
+				if(parseType.equalsIgnoreCase("string"))
+					input.setParseType(ParseInputType.STRING);
+				else if(parseType.equalsIgnoreCase("list"))
+					input.setParseType(ParseInputType.LIST);
+				else{
+					// TODO throw exception
 				}
 			}
 		}

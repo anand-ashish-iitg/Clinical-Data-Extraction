@@ -5,6 +5,9 @@ import com.care.datatype.ComponentType;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by AMIT on 8/10/14.
  */
@@ -21,8 +24,11 @@ public class PlatformManagerTest
 		String inputContent = "Hello";
 
 		PlatformManager manager = new PlatformManager();
-		String output = (String) manager.StartComponent(component, inputContent);
+		manager.InitializeComponent(component);
+		List<String> output = manager.DoWork(inputContent);
 
-		Assert.assertEquals("HELLO", output);
+		List<String> expected = new ArrayList<String>(1);
+		expected.add(inputContent);
+		Assert.assertEquals(expected, output);
 	}
 }

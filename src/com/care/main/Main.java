@@ -78,22 +78,26 @@ public class Main
 		}
 	}
 
-	private static Object StartPlatform(Object inputContent) throws Exception
+	private static List<String> StartPlatform(Object inputContent) throws Exception
 	{
 		PlatformManager manager = new PlatformManager();
 
-		return manager.StartComponent(component, inputContent);
-		// TODO check either parseInputType or object and accordingly call function
-		// of the interface
+		manager.InitializeComponent(component);
+		if (input.getParseType() == ParseInputType.STRING)
+		{
+			return manager.DoWork((String) inputContent);
+		}
+		else
+		{
+			return manager.DoWork((List<String>) inputContent);
+		}
 	}
 
-	private static void GenerateOutputFile(Object outputContent) throws Exception
+	private static void GenerateOutputFile(List<String> outputContent) throws Exception
 	{
 		OutputHandler outputHandler = new OutputHandler(output);
 
-		// TODO make this more generic
-		// outputHandler.WriteStringToFile((String) outputContent);
-		outputHandler.WriteListToFile((List<String>) outputContent);
+		outputHandler.WriteListToFile(outputContent);
 	}
 
 	public static void main(String[] args)
@@ -116,7 +120,7 @@ public class Main
 			Object content = ParseInputFile();
 
 			// Starting the platform
-			Object output = StartPlatform(content);
+			List<String> output = StartPlatform(content);
 
 			// Write the output in the required format
 			GenerateOutputFile(output);

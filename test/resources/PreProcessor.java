@@ -2,7 +2,7 @@ package resources;
 
 import com.care.framework.IPreProcessor;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PreProcessor implements IPreProcessor
@@ -16,13 +16,9 @@ public class PreProcessor implements IPreProcessor
 	@Override
 	public List<String> PreProcess(String data)
 	{
-		List<String> list = new ArrayList<String>();
-		list.add("a");
-		list.add(data.toUpperCase());
-		list.add("c");
+		String[] tokens = data.split(" ");
+		List<String> list = Arrays.asList(tokens);
 
 		return list;
 	}
-
-
 }

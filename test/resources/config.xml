@@ -1,0 +1,18 @@
+<config>
+    <input>
+        <type>File</type>
+        <path>C:\Users\AMIT\Dropbox\BTP\input.txt</path>
+        <parseType>string</parseType>
+    </input>
+    <component>
+        <type>preprocessor</type>
+        <path>C:\Users\AMIT\Dropbox\BTP\ClinicalDataExtraction\bin\resources\</path>
+        <className>resources.PreProcessor</className>
+        <methodName></methodName>
+    </component>
+    <output>
+        <type>File</type>
+        <path>C:\Users\AMIT\Dropbox\BTP\output.txt</path>
+        <generateType>list</generateType>
+    </output>
+</config>

@@ -17,6 +17,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.List;
 
 // TODO error checking of all strings required
 // TODO add logger library
@@ -91,7 +92,8 @@ public class Main
 		OutputHandler outputHandler = new OutputHandler(output);
 
 		// TODO make this more generic
-		outputHandler.WriteStringToFile((String) outputContent);
+		// outputHandler.WriteStringToFile((String) outputContent);
+		outputHandler.WriteListToFile((List<String>) outputContent);
 	}
 
 	public static void main(String[] args)

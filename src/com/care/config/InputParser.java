@@ -3,6 +3,7 @@ package com.care.config;
 import com.care.datatype.Input;
 import com.care.datatype.InputType;
 import com.care.datatype.ParseInputType;
+import com.care.exception.ConfigException;
 import com.google.common.base.Strings;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -14,7 +15,7 @@ public class InputParser
 {
 	private static Input input = new Input();
 
-	public static Input GetInput(Node node)
+	public static Input GetInput(Node node) throws ConfigException
 	{
 		NodeList children = node.getChildNodes();
 		for (int j = 0; j < children.getLength(); j++)
@@ -39,7 +40,7 @@ public class InputParser
 				}
 				else
 				{
-					// TODO throw exception
+					throw new ConfigException(typeValue + " format of files not supported");
 				}
 			}
 
@@ -50,6 +51,10 @@ public class InputParser
 				if (!Strings.isNullOrEmpty(pathValue))
 				{
 					input.setPath(pathValue);
+				}
+				else
+				{
+					throw new ConfigException("Path cannot be empty");
 				}
 			}
 
@@ -67,7 +72,7 @@ public class InputParser
 				}
 				else
 				{
-					// TODO throw exception
+					throw new ConfigException(parseType + " parsing of files not supported");
 				}
 			}
 		}

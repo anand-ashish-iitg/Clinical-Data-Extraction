@@ -7,28 +7,33 @@ import com.care.datatype.Component;
 import com.care.datatype.Input;
 import com.care.datatype.Output;
 import com.care.datatype.ParseInputType;
+import com.care.exception.ConfigException;
 import com.care.platform.InputHandler;
 import com.care.platform.OutputHandler;
 import com.care.platform.PlatformManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 // TODO error checking of all strings required
 // TODO add logger library
-// First argument should be the path of the config file
+// TODO handle constant string properly in some library
 public class Main
 {
 	private static Input input;
 	private static Component component;
 	private static Output output;
 
-	private static void ParseConfig(String configFilePath) throws Exception
+	private static void ParseConfig(String configFilePath)
+			throws ParserConfigurationException, IOException, SAXException, ConfigException
 	{
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -102,17 +107,15 @@ public class Main
 
 	public static void main(String[] args)
 	{
-		if (args.length < 1)
-		{
-			System.out.println("Min 1 argument reqd");
-			// TODO throw exception
-			return;
-		}
-
-		String configFilePath = args[0];
-
 		try
 		{
+			if (args.length < 1)
+			{
+				throw new IllegalArgumentException("Config file path required as system argument");
+			}
+
+			String configFilePath = args[0];
+
 			// Parsing the config.xml
 			ParseConfig(configFilePath);
 
@@ -128,7 +131,7 @@ public class Main
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			// TODO properly display exception message and stack trace somewhere
 		}
 	}
 }

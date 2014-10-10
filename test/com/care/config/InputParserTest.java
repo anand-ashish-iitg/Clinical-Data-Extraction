@@ -7,9 +7,9 @@ import org.junit.Test;
  */
 public class InputParserTest
 {
-	@Test
-	public void testGetInput()
-	{
+        @Test
+        public void testGetInput()
+        {
 
-	}
+        }
 }

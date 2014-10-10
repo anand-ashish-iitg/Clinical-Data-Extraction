@@ -5,33 +5,33 @@ package com.care.exception;
  */
 public class IOException extends Exception
 {
-	private String message = null;
+        private String message = null;
 
-	public IOException()
-	{
-		super();
-	}
+        public IOException()
+        {
+                super();
+        }
 
-	public IOException(String message)
-	{
-		super(message);
-		this.message = message;
-	}
+        public IOException(String message)
+        {
+                super(message);
+                this.message = message;
+        }
 
-	public IOException(Throwable cause)
-	{
-		super(cause);
-	}
+        public IOException(Throwable cause)
+        {
+                super(cause);
+        }
 
-	@Override
-	public String toString()
-	{
-		return message;
-	}
+        @Override
+        public String toString()
+        {
+                return message;
+        }
 
-	@Override
-	public String getMessage()
-	{
-		return message;
-	}
+        @Override
+        public String getMessage()
+        {
+                return message;
+        }
 }

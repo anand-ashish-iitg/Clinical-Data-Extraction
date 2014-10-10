@@ -5,6 +5,5 @@ package com.care.datatype;
  */
 public enum ComponentType
 {
-	PRE_PROCESSOR,
-	DE_IDENTIFIER
+        PRE_PROCESSOR, DE_IDENTIFIER
 }

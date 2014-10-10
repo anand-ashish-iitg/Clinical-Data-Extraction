@@ -7,6 +7,7 @@ import com.care.datatype.Component;
 import com.care.datatype.Input;
 import com.care.datatype.Output;
 import com.care.datatype.ParseInputType;
+import com.care.exception.ComponentException;
 import com.care.exception.ConfigException;
 import com.care.platform.InputHandler;
 import com.care.platform.OutputHandler;
@@ -21,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 // TODO error checking of all strings required
@@ -28,110 +30,133 @@ import java.util.List;
 // TODO handle constant string properly in some library
 public class Main
 {
-	private static Input input;
-	private static Component component;
-	private static Output output;
+        private static Input input;
+        private static List<Component> components;
+        private static Output output;
 
-	private static void ParseConfig(String configFilePath)
-			throws ParserConfigurationException, IOException, SAXException, ConfigException
-	{
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse(new File(configFilePath));
+        private static void ParseConfig(String configFilePath) throws ParserConfigurationException, IOException, SAXException, ConfigException
+        {
+                DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+                Document doc = docBuilder.parse(new File(configFilePath));
 
-		//Iterating through the nodes and extracting the data.
-		NodeList nodeList = doc.getDocumentElement().getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++)
-		{
-			Node node = nodeList.item(i);
+                components = new ArrayList<Component>();
 
-			// parse input
-			if (node.getNodeName().equalsIgnoreCase("input"))
-			{
-				input = InputParser.GetInput(node);
-				continue;
-			}
+                // Iterating through the nodes and extracting the data.
+                NodeList nodeList = doc.getDocumentElement().getChildNodes();
+                for (int i = 0; i < nodeList.getLength(); i++)
+                {
+                        Node node = nodeList.item(i);
 
-			// parse main component
-			if (node.getNodeName().equalsIgnoreCase("component"))
-			{
-				component = ComponentParser.GetComponent(node);
-				continue;
-			}
+                        // parse input
+                        if (node.getNodeName().equalsIgnoreCase("input"))
+                        {
+                                input = InputParser.GetInput(node);
+                                continue;
+                        }
 
-			// parse the output
-			if (node.getNodeName().equalsIgnoreCase("output"))
-			{
-				output = OutputParser.GetOutput(node);
-				continue;
-			}
-		}
-	}
+                        // parse main component
+                        if (node.getNodeName().equalsIgnoreCase("components"))
+                        {
+                                NodeList componentList = node.getChildNodes();
+                                for (int j = 0; j < componentList.getLength(); j++)
+                                {
+                                        try
+                                        {
+                                                components.add(ComponentParser.GetComponent(componentList.item(j)));
+                                        }
+                                        catch (ComponentException e)
+                                        {
+                                                e.printStackTrace();
+                                        }
+                                }
+                                continue;
+                        }
 
-	private static Object ParseInputFile() throws Exception
-	{
-		InputHandler inputHandler = new InputHandler(input);
+                        // parse the output
+                        if (node.getNodeName().equalsIgnoreCase("output"))
+                        {
+                                output = OutputParser.GetOutput(node);
+                                continue;
+                        }
+                }
+        }
 
-		String inputContent = inputHandler.ReadFile();
-		if (input.getParseType() == ParseInputType.LIST)
-		{
-			return inputHandler.ConvertXmlStringToList(inputContent);
-		}
-		else
-		{
-			return inputContent;
-		}
-	}
+        private static Object ParseInputFile() throws Exception
+        {
+                InputHandler inputHandler = new InputHandler(input);
 
-	private static List<String> StartPlatform(Object inputContent) throws Exception
-	{
-		PlatformManager manager = new PlatformManager();
+                String inputContent = inputHandler.ReadFile();
+                if (input.getParseType() == ParseInputType.LIST)
+                {
+                        return inputHandler.ConvertXmlStringToList(inputContent);
+                }
+                else
+                {
+                        return inputContent;
+                }
+        }
 
-		manager.InitializeComponent(component);
-		if (input.getParseType() == ParseInputType.STRING)
-		{
-			return manager.DoWork((String) inputContent);
-		}
-		else
-		{
-			return manager.DoWork((List<String>) inputContent);
-		}
-	}
+        private static List<String> StartPlatform(Object inputContent) throws Exception
+        {
+                PlatformManager manager = new PlatformManager();
+                List<String> outputContent = null;
 
-	private static void GenerateOutputFile(List<String> outputContent) throws Exception
-	{
-		OutputHandler outputHandler = new OutputHandler(output);
+                manager.InitializeComponent(components.get(0));
 
-		outputHandler.WriteListToFile(outputContent);
-	}
+                // Special handling for 1st component.
+                if (input.getParseType() == ParseInputType.STRING)
+                {
+                        outputContent = manager.DoWork((String) inputContent);
+                }
+                else
+                {
+                        outputContent = manager.DoWork((List<String>) inputContent);
+                }
 
-	public static void main(String[] args)
-	{
-		try
-		{
-			if (args.length < 1)
-			{
-				throw new IllegalArgumentException("Config file path required as system argument");
-			}
+                for (int i = 1; i < components.size(); i++)
+                {
+                        outputContent = manager.DoWork((List<String>) outputContent);
+                }
 
-			String configFilePath = args[0];
+                return outputContent;
+        }
 
-			// Parsing the config.xml
-			ParseConfig(configFilePath);
+        private static void GenerateOutputFile(List<String> outputContent) throws Exception
+        {
+                OutputHandler outputHandler = new OutputHandler(output);
 
-			// Get the input from the format
-			Object content = ParseInputFile();
+                outputHandler.WriteListToFile(outputContent);
+        }
 
-			// Starting the platform
-			List<String> output = StartPlatform(content);
+        public static void main(String[] args)
+        {
+                try
+                {
+                        if (args.length < 1)
+                        {
+                                throw new IllegalArgumentException("Config file path required as system argument");
+                        }
 
-			// Write the output in the required format
-			GenerateOutputFile(output);
+                        String configFilePath = args[0];
 
-		}
-		catch (Exception e)
-		{
-			// TODO properly display exception message and stack trace somewhere
-		}
-	}
+                        // Parsing the config.xml
+                        ParseConfig(configFilePath);
+
+                        // Get the input from the format
+                        Object content = ParseInputFile();
+
+                        // Starting the platform
+                        List<String> output = StartPlatform(content);
+
+                        // Write the output in the required format
+                        GenerateOutputFile(output);
+
+                }
+                catch (Exception e)
+                {
+                        // TODO properly display exception message and stack
+                        // trace somewhere
+                }
+        }
 }

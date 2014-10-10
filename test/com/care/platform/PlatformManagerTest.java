@@ -13,22 +13,22 @@ import java.util.List;
  */
 public class PlatformManagerTest
 {
-	@Test
-	public void testStartComponent()
-	{
-		Component component = new Component();
-		component.setType(ComponentType.PRE_PROCESSOR);
-		component.setPath(".\\bin\\resources");
-		component.setClassName("resources.PreProcessor");
+        @Test
+        public void testStartComponent()
+        {
+                Component component = new Component();
+                component.setType(ComponentType.PRE_PROCESSOR);
+                component.setPath("./bin/resources");
+                component.setClassName("resources.PreProcessor");
 
-		String inputContent = "Hello";
+                String inputContent = "Hello";
 
-		PlatformManager manager = new PlatformManager();
-		manager.InitializeComponent(component);
-		List<String> output = manager.DoWork(inputContent);
+                PlatformManager manager = new PlatformManager();
+                manager.InitializeComponent(component);
+                List<String> output = manager.DoWork(inputContent);
 
-		List<String> expected = new ArrayList<String>(1);
-		expected.add(inputContent);
-		Assert.assertEquals(expected, output);
-	}
+                List<String> expected = new ArrayList<String>(1);
+                expected.add(inputContent);
+                Assert.assertEquals(expected, output);
+        }
 }

@@ -20,57 +20,57 @@ import java.util.List;
  */
 public class InputHandler
 {
-	private Input input;
+        private Input input;
 
-	public InputHandler(Input input)
-	{
-		this.input = input;
-	}
+        public InputHandler(Input input)
+        {
+                this.input = input;
+        }
 
-	/**
-	 * Reads file into a string
-	 *
-	 * @return
-	 * @throws IOException
-	 */
-	public String ReadFile() throws IOException
-	{
-		byte[] content = Files.readAllBytes(Paths.get(input.getPath()));
+        /**
+         * Reads file into a string
+         * 
+         * @return
+         * @throws IOException
+         */
+        public String ReadFile() throws IOException
+        {
+                byte[] content = Files.readAllBytes(Paths.get(input.getPath()));
 
-		return new String(content);
-	}
+                return new String(content);
+        }
 
-	/**
-	 * Converts string to List<string>
-	 * separated by <block></block>
-	 *
-	 * @param content valid XMLString
-	 * @return List<String>
-	 */
-	public List<String> ConvertXmlStringToList(String content)
-	{
-		List<String> list = new ArrayList<String>();
+        /**
+         * Converts string to List<string> separated by <block></block>
+         * 
+         * @param content
+         *                valid XMLString
+         * @return List<String>
+         */
+        public List<String> ConvertXmlStringToList(String content)
+        {
+                List<String> list = new ArrayList<String>();
 
-		try
-		{
-			Document document = new SAXBuilder().build(new InputSource(new StringReader(content)));
+                try
+                {
+                        Document document = new SAXBuilder().build(new InputSource(new StringReader(content)));
 
-			List<Element> rootElements = document.getRootElement().getChildren();
-			for (Element node : rootElements)
-			{
-				if (node.getName().equalsIgnoreCase("block"))
-				{
-					List<Content> blockContent = node.getContent();
-					list.add(new XMLOutputter().outputString(blockContent));
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			// TODO throw exception
-		}
+                        List<Element> rootElements = document.getRootElement().getChildren();
+                        for (Element node : rootElements)
+                        {
+                                if (node.getName().equalsIgnoreCase("block"))
+                                {
+                                        List<Content> blockContent = node.getContent();
+                                        list.add(new XMLOutputter().outputString(blockContent));
+                                }
+                        }
+                }
+                catch (Exception e)
+                {
+                        e.printStackTrace();
+                        // TODO throw exception
+                }
 
-		return list;
-	}
+                return list;
+        }
 }

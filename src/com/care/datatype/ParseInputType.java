@@ -5,6 +5,5 @@ package com.care.datatype;
  */
 public enum ParseInputType
 {
-	STRING,
-	LIST
+        STRING, LIST
 }

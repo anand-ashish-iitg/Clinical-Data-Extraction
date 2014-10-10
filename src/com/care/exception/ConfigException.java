@@ -5,33 +5,33 @@ package com.care.exception;
  */
 public class ConfigException extends Exception
 {
-	private String message = null;
+        private String message = null;
 
-	public ConfigException()
-	{
-		super();
-	}
+        public ConfigException()
+        {
+                super();
+        }
 
-	public ConfigException(String message)
-	{
-		super(message);
-		this.message = message;
-	}
+        public ConfigException(String message)
+        {
+                super(message);
+                this.message = message;
+        }
 
-	public ConfigException(Throwable cause)
-	{
-		super(cause);
-	}
+        public ConfigException(Throwable cause)
+        {
+                super(cause);
+        }
 
-	@Override
-	public String toString()
-	{
-		return message;
-	}
+        @Override
+        public String toString()
+        {
+                return message;
+        }
 
-	@Override
-	public String getMessage()
-	{
-		return message;
-	}
+        @Override
+        public String getMessage()
+        {
+                return message;
+        }
 }

@@ -145,15 +145,40 @@ public class Main
             // Parsing the config.xml
             ParseConfig(configFilePath);
 
-            // Get the input from the format
-            Object content = ParseInputFile();
+            // TODO code refactoring needed
+            if (input.getType() == InputType.FOLDER)
+            {
+                List<String> fileNames = Helper.GetFileNames(input.getPath());
+                File inputFolderPath = new File(input.getPath());
+                File outputFolderPath = new File(output.getPath());
 
-            // Starting the platform
-            List<String> output = StartPlatform(content);
+                for (String filename : fileNames)
+                {
+                    // Get the input from the format
+                    File inputFile = new File(inputFolderPath, filename);
+                    input.setPath(inputFile.getPath());
+                    Object content = ParseInputFile();
 
-            // Write the output in the required format
-            GenerateOutputFile(output);
+                    // Starting the platform
+                    List<String> stringList = StartPlatform(content);
 
+                    // Write the output in the required format
+                    File outputFile = new File(outputFolderPath, filename);
+                    output.setPath(outputFile.getPath());
+                    GenerateOutputFile(stringList);
+                }
+            }
+            else
+            {
+                // Get the input from the format
+                Object content = ParseInputFile();
+
+                // Starting the platform
+                List<String> output = StartPlatform(content);
+
+                // Write the output in the required format
+                GenerateOutputFile(output);
+            }
         }
         catch (Exception e)
         {

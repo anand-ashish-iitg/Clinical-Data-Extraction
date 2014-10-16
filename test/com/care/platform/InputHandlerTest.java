@@ -71,7 +71,7 @@ public class InputHandlerTest
     public void ConvertValidXmlStringToList()
     {
         Input input = new Input();
-        input.setType(InputType.XML);
+        input.setType(InputType.FILE);
         input.setPath("./test/resources/ValidXmlFile.xml");
         input.setParseType(ParseInputType.LIST);
 

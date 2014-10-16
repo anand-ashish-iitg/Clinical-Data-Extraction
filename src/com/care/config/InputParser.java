@@ -30,13 +30,13 @@ public class InputParser
             if (childOfInput.getNodeName().equalsIgnoreCase("type"))
             {
                 String typeValue = childOfInput.getTextContent();
-                if (typeValue.equalsIgnoreCase("file"))
+                if (typeValue.equalsIgnoreCase("folder"))
+                {
+                    input.setType(InputType.FOLDER);
+                }
+                else if (typeValue.equalsIgnoreCase("file"))
                 {
                     input.setType(InputType.FILE);
-                }
-                else if (typeValue.equalsIgnoreCase("xml"))
-                {
-                    input.setType(InputType.XML);
                 }
                 else
                 {

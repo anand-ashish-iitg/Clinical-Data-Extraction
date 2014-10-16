@@ -1,4 +1,4 @@
-1. Add Folder Support
+1. Add Folder Support[DONE]
 2. Component classes spread across different folders[DONE]
 3. Support for multiple languages - component in other languages
 4. Add default components
@@ -8,7 +8,9 @@
 	- different font color support
 	- display exceptions properly
 6. Test multiple components - JUnit
+	- complete other tests also
 7. Add logger library
 8. Instead of class files, user can give one big JAR file[DONE]
 9. Add support of mix of classes + tell all jar files(dependencies) differently
 10. User can give his class file separately and one big jar file containing dependencies[DONE]
+11. Wrap all the exceptions in custom exceptions and handle them properly

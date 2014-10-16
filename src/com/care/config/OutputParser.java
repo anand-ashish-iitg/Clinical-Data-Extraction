@@ -30,13 +30,13 @@ public class OutputParser
             if (childOfOutput.getNodeName().equalsIgnoreCase("type"))
             {
                 String typeValue = childOfOutput.getTextContent();
-                if (typeValue.equalsIgnoreCase("file"))
+                if (typeValue.equalsIgnoreCase("folder"))
+                {
+                    output.setType(OutputType.FOLDER);
+                }
+                else if (typeValue.equalsIgnoreCase("file"))
                 {
                     output.setType(OutputType.FILE);
-                }
-                else if (typeValue.equalsIgnoreCase("xml"))
-                {
-                    output.setType(OutputType.XML);
                 }
                 else
                 {

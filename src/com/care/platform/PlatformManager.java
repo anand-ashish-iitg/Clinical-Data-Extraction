@@ -65,7 +65,6 @@ public class PlatformManager
 
     public void InitializeClassComponent(Component component)
     {
-        System.out.println("h");
         this.component = component;
 
         // Create a File object on the root of the directory containing

@@ -3,10 +3,7 @@ package com.care.main;
 import com.care.config.ComponentParser;
 import com.care.config.InputParser;
 import com.care.config.OutputParser;
-import com.care.datatype.Component;
-import com.care.datatype.Input;
-import com.care.datatype.Output;
-import com.care.datatype.ParseInputType;
+import com.care.datatype.*;
 import com.care.exception.ComponentException;
 import com.care.exception.ConfigException;
 import com.care.platform.InputHandler;
@@ -100,10 +97,18 @@ public class Main
 
         for (int i = 0; i < components.size(); i++)
         {
-            manager.InitializeComponent(components.get(i));
+            Component component = components.get(i);
+            if (component.getLoadType() == ComponentLoadType.CLASS)
+            {
+                manager.InitializeClassComponent(component);
+            }
+            else if (component.getLoadType() == ComponentLoadType.JAR)
+            {
+                manager.InitializeJarComponent(component);
+            }
+
             if (i == 0 && input.getParseType() == ParseInputType.STRING)
             {
-                System.out.println("h");
                 outputContent = manager.DoWork((String) inputContent);
             }
             else if (i == 0 && input.getParseType() == ParseInputType.LIST)

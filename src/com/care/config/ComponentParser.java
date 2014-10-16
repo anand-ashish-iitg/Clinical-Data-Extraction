@@ -1,6 +1,7 @@
 package com.care.config;
 
 import com.care.datatype.Component;
+import com.care.datatype.ComponentLoadType;
 import com.care.datatype.ComponentType;
 import com.care.exception.ComponentException;
 import com.google.common.base.Strings;
@@ -23,6 +24,24 @@ public class ComponentParser
             if (childOfInput == null || Strings.isNullOrEmpty(childOfInput.getNodeName()))
             {
                 continue;
+            }
+
+            // parsing load type of the component
+            if (childOfInput.getNodeName().equalsIgnoreCase("loadType"))
+            {
+                String loadType = childOfInput.getTextContent();
+                if (loadType.equalsIgnoreCase("class"))
+                {
+                    component.setLoadType(ComponentLoadType.CLASS);
+                }
+                else if (loadType.equalsIgnoreCase("jar"))
+                {
+                    component.setLoadType(ComponentLoadType.JAR);
+                }
+                else
+                {
+                    throw new ComponentException(loadType + " : is not supported");
+                }
             }
 
             // parsing type of the component
@@ -68,6 +87,20 @@ public class ComponentParser
                 else
                 {
                     throw new ComponentException(className + " is not present.");
+                }
+            }
+
+            // parsing dependency path of the component
+            if (childOfInput.getNodeName().equalsIgnoreCase("dependencyPath"))
+            {
+                String dependencyPath = childOfInput.getTextContent();
+                if (!Strings.isNullOrEmpty(dependencyPath))
+                {
+                    component.setDependencyPath(dependencyPath);
+                }
+                else
+                {
+                    throw new ComponentException(dependencyPath + " is not present.");
                 }
             }
         }

@@ -27,7 +27,7 @@ public class PlatformManagerTest
         try
         {
             PlatformManager manager = new PlatformManager();
-            manager.InitializeComponent(component);
+            manager.InitializeClassComponent(component);
             List<String> output = null;
             output = manager.DoWork(inputContent);
 

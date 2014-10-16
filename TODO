@@ -1,5 +1,5 @@
 1. Add Folder Support
-2. Component classes spread across different folders - check
+2. Component classes spread across different folders[DONE]
 3. Support for multiple languages - component in other languages
 4. Add default components
 5. GUI
@@ -9,3 +9,6 @@
 	- display exceptions properly
 6. Test multiple components - JUnit
 7. Add logger library
+8. Instead of class files, user can give one big JAR file[DONE]
+9. Add support of mix of classes + tell all jar files(dependencies) differently
+10. User can give his class file separately and one big jar file containing dependencies[DONE]

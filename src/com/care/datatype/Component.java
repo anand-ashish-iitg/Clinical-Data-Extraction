@@ -5,9 +5,21 @@ package com.care.datatype;
  */
 public class Component
 {
+    private ComponentLoadType loadType;
     private ComponentType type;
     private String path;
     private String className;
+    private String dependencyPath;
+
+    public ComponentLoadType getLoadType()
+    {
+        return loadType;
+    }
+
+    public void setLoadType(ComponentLoadType loadType)
+    {
+        this.loadType = loadType;
+    }
 
     public ComponentType getType()
     {
@@ -37,5 +49,15 @@ public class Component
     public void setClassName(String className)
     {
         this.className = className;
+    }
+
+    public String getDependencyPath()
+    {
+        return dependencyPath;
+    }
+
+    public void setDependencyPath(String dependencyPath)
+    {
+        this.dependencyPath = dependencyPath;
     }
 }

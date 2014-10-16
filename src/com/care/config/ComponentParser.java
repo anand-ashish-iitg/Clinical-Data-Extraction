@@ -70,8 +70,6 @@ public class ComponentParser
                     throw new ComponentException(className + " is not present.");
                 }
             }
-
-            // TODO do for rest of the parameters
         }
 
         return component;

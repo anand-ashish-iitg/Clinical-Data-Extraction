@@ -2,6 +2,7 @@ package com.care.platform;
 
 import com.care.datatype.Component;
 import com.care.datatype.ComponentType;
+import com.care.exception.ComponentException;
 import com.care.framework.IPreProcessor;
 
 import java.io.File;
@@ -14,7 +15,7 @@ public class PlatformManager
     private Object componentInstance;
     private Component component;
 
-    public List<String> DoWork(String inputContent)
+    public List<String> DoWork(String inputContent) throws ComponentException
     {
         ComponentType componentType = component.getType();
 
@@ -22,13 +23,14 @@ public class PlatformManager
         {
             if (this.componentInstance instanceof IPreProcessor)
             {
+                System.out.println("yes");
                 IPreProcessor preProcessor = (IPreProcessor) this.componentInstance;
 
                 return preProcessor.PreProcess(inputContent);
             }
             else
             {
-                // TODO throw exception
+                throw new ComponentException("IPreProcessor interface not implemented");
                 // TODO log errors
             }
         }

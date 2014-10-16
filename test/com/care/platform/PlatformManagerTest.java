@@ -2,6 +2,7 @@ package com.care.platform;
 
 import com.care.datatype.Component;
 import com.care.datatype.ComponentType;
+import com.care.exception.ComponentException;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -23,12 +24,22 @@ public class PlatformManagerTest
 
         String inputContent = "Hello";
 
-        PlatformManager manager = new PlatformManager();
-        manager.InitializeComponent(component);
-        List<String> output = manager.DoWork(inputContent);
+        try
+        {
+            PlatformManager manager = new PlatformManager();
+            manager.InitializeComponent(component);
+            List<String> output = null;
+            output = manager.DoWork(inputContent);
 
-        List<String> expected = new ArrayList<String>(1);
-        expected.add(inputContent);
-        Assert.assertEquals(expected, output);
+            List<String> expected = new ArrayList<String>(1);
+            expected.add(inputContent);
+            Assert.assertEquals(expected, output);
+
+        }
+        catch (ComponentException e)
+        {
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
+        }
     }
 }

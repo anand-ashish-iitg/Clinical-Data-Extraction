@@ -8,7 +8,6 @@ public class Component
     private ComponentType type;
     private String path;
     private String className;
-    private String methodName; // TODO some method identifier
 
     public ComponentType getType()
     {
@@ -28,16 +27,6 @@ public class Component
     public void setPath(String path)
     {
         this.path = path;
-    }
-
-    public String getMethodName()
-    {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName)
-    {
-        this.methodName = methodName;
     }
 
     public String getClassName()

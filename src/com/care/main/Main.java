@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO error checking of all strings required
-// TODO add logger library
 // TODO handle constant string properly in some library
 public class Main
 {
@@ -104,7 +103,12 @@ public class Main
             manager.InitializeComponent(components.get(i));
             if (i == 0 && input.getParseType() == ParseInputType.STRING)
             {
+                System.out.println("h");
                 outputContent = manager.DoWork((String) inputContent);
+            }
+            else if (i == 0 && input.getParseType() == ParseInputType.LIST)
+            {
+                outputContent = manager.DoWork((List<String>) inputContent);
             }
             else
             {

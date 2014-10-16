@@ -94,7 +94,14 @@ public class ComponentParser
             if (childOfInput.getNodeName().equalsIgnoreCase("dependencyPath"))
             {
                 String dependencyPath = childOfInput.getTextContent();
-                component.setDependencyPath(dependencyPath);
+                if (!Strings.isNullOrEmpty(dependencyPath))
+                {
+                    component.setDependencyPath(dependencyPath);
+                }
+                else
+                {
+                    throw new ComponentException(dependencyPath + " is not present.");
+                }
             }
         }
 

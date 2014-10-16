@@ -6,16 +6,15 @@
     </input>
     <components>
         <component>
+            <loadType>class</loadType>
             <type>preprocessor</type>
             <path>bin/resources/</path>
             <className>resources.PreProcessor</className>
-            <methodName></methodName>
         </component>
         <component>
             <type>preprocessor</type>
             <path>bin/resources/</path>
             <className>resources.PreProcessor</className>
-            <methodName></methodName>
         </component>
     </components>
     <output>

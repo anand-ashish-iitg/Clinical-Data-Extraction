@@ -13,70 +13,70 @@ import org.w3c.dom.NodeList;
  */
 public class InputParser
 {
-        private static Input input = new Input();
+    private static Input input = new Input();
 
-        public static Input GetInput(Node node) throws ConfigException
+    public static Input GetInput(Node node) throws ConfigException
+    {
+        NodeList children = node.getChildNodes();
+        for (int j = 0; j < children.getLength(); j++)
         {
-                NodeList children = node.getChildNodes();
-                for (int j = 0; j < children.getLength(); j++)
+            Node childOfInput = children.item(j);
+            if (childOfInput == null || Strings.isNullOrEmpty(childOfInput.getNodeName()))
+            {
+                continue;
+            }
+
+            // parsing type of the input
+            if (childOfInput.getNodeName().equalsIgnoreCase("type"))
+            {
+                String typeValue = childOfInput.getTextContent();
+                if (typeValue.equalsIgnoreCase("file"))
                 {
-                        Node childOfInput = children.item(j);
-                        if (childOfInput == null || Strings.isNullOrEmpty(childOfInput.getNodeName()))
-                        {
-                                continue;
-                        }
-
-                        // parsing type of the input
-                        if (childOfInput.getNodeName().equalsIgnoreCase("type"))
-                        {
-                                String typeValue = childOfInput.getTextContent();
-                                if (typeValue.equalsIgnoreCase("file"))
-                                {
-                                        input.setType(InputType.FILE);
-                                }
-                                else if (typeValue.equalsIgnoreCase("xml"))
-                                {
-                                        input.setType(InputType.XML);
-                                }
-                                else
-                                {
-                                        throw new ConfigException(typeValue + " format of files not supported");
-                                }
-                        }
-
-                        // parsing path of the input
-                        if (childOfInput.getNodeName().equalsIgnoreCase("path"))
-                        {
-                                String pathValue = childOfInput.getTextContent();
-                                if (!Strings.isNullOrEmpty(pathValue))
-                                {
-                                        input.setPath(pathValue);
-                                }
-                                else
-                                {
-                                        throw new ConfigException("Path cannot be empty");
-                                }
-                        }
-
-                        // parsing input parse type
-                        if (childOfInput.getNodeName().equalsIgnoreCase("parseType"))
-                        {
-                                String parseType = childOfInput.getTextContent();
-                                if (parseType.equalsIgnoreCase("string"))
-                                {
-                                        input.setParseType(ParseInputType.STRING);
-                                }
-                                else if (parseType.equalsIgnoreCase("list"))
-                                {
-                                        input.setParseType(ParseInputType.LIST);
-                                }
-                                else
-                                {
-                                        throw new ConfigException(parseType + " parsing of files not supported");
-                                }
-                        }
+                    input.setType(InputType.FILE);
                 }
+                else if (typeValue.equalsIgnoreCase("xml"))
+                {
+                    input.setType(InputType.XML);
+                }
+                else
+                {
+                    throw new ConfigException(typeValue + " format of files not supported");
+                }
+            }
 
-                return input;
+            // parsing path of the input
+            if (childOfInput.getNodeName().equalsIgnoreCase("path"))
+            {
+                String pathValue = childOfInput.getTextContent();
+                if (!Strings.isNullOrEmpty(pathValue))
+                {
+                    input.setPath(pathValue);
+                }
+                else
+                {
+                    throw new ConfigException("Path cannot be empty");
+                }
+            }
+
+            // parsing input parse type
+            if (childOfInput.getNodeName().equalsIgnoreCase("parseType"))
+            {
+                String parseType = childOfInput.getTextContent();
+                if (parseType.equalsIgnoreCase("string"))
+                {
+                    input.setParseType(ParseInputType.STRING);
+                }
+                else if (parseType.equalsIgnoreCase("list"))
+                {
+                    input.setParseType(ParseInputType.LIST);
+                }
+                else
+                {
+                    throw new ConfigException(parseType + " parsing of files not supported");
+                }
+            }
         }
+
+        return input;
+    }
 }

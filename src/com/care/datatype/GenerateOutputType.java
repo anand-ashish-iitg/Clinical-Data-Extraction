@@ -5,5 +5,5 @@ package com.care.datatype;
  */
 public enum GenerateOutputType
 {
-        STRING, LIST
+    STRING, LIST
 }

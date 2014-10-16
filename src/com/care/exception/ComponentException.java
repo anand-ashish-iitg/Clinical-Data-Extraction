@@ -5,33 +5,33 @@ package com.care.exception;
  */
 public class ComponentException extends Exception
 {
-        private String message = null;
+    private String message = null;
 
-        public ComponentException()
-        {
-                super();
-        }
+    public ComponentException()
+    {
+        super();
+    }
 
-        public ComponentException(String message)
-        {
-                super(message);
-                this.message = message;
-        }
+    public ComponentException(String message)
+    {
+        super(message);
+        this.message = message;
+    }
 
-        public ComponentException(Throwable cause)
-        {
-                super(cause);
-        }
+    public ComponentException(Throwable cause)
+    {
+        super(cause);
+    }
 
-        @Override
-        public String toString()
-        {
-                return message;
-        }
+    @Override
+    public String toString()
+    {
+        return message;
+    }
 
-        @Override
-        public String getMessage()
-        {
-                return message;
-        }
+    @Override
+    public String getMessage()
+    {
+        return message;
+    }
 }

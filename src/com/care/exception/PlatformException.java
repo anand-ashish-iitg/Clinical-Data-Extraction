@@ -5,33 +5,33 @@ package com.care.exception;
  */
 public class PlatformException extends Exception
 {
-        private String message = null;
+    private String message = null;
 
-        public PlatformException()
-        {
-                super();
-        }
+    public PlatformException()
+    {
+        super();
+    }
 
-        public PlatformException(String message)
-        {
-                super(message);
-                this.message = message;
-        }
+    public PlatformException(String message)
+    {
+        super(message);
+        this.message = message;
+    }
 
-        public PlatformException(Throwable cause)
-        {
-                super(cause);
-        }
+    public PlatformException(Throwable cause)
+    {
+        super(cause);
+    }
 
-        @Override
-        public String toString()
-        {
-                return message;
-        }
+    @Override
+    public String toString()
+    {
+        return message;
+    }
 
-        @Override
-        public String getMessage()
-        {
-                return message;
-        }
+    @Override
+    public String getMessage()
+    {
+        return message;
+    }
 }

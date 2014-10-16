@@ -11,78 +11,78 @@ import java.util.List;
 
 public class PlatformManager
 {
-        private Object componentInstance;
-        private Component component;
+    private Object componentInstance;
+    private Component component;
 
-        public List<String> DoWork(String inputContent)
+    public List<String> DoWork(String inputContent)
+    {
+        ComponentType componentType = component.getType();
+
+        if (componentType == ComponentType.PRE_PROCESSOR)
         {
-                ComponentType componentType = component.getType();
+            if (this.componentInstance instanceof IPreProcessor)
+            {
+                IPreProcessor preProcessor = (IPreProcessor) this.componentInstance;
 
-                if (componentType == ComponentType.PRE_PROCESSOR)
-                {
-                        if (this.componentInstance instanceof IPreProcessor)
-                        {
-                                IPreProcessor preProcessor = (IPreProcessor) this.componentInstance;
-
-                                return preProcessor.PreProcess(inputContent);
-                        }
-                        else
-                        {
-                                // TODO throw exception
-                                // TODO log errors
-                        }
-                }
-
-                return null;
+                return preProcessor.PreProcess(inputContent);
+            }
+            else
+            {
+                // TODO throw exception
+                // TODO log errors
+            }
         }
 
-        public List<String> DoWork(List<String> inputContent)
+        return null;
+    }
+
+    public List<String> DoWork(List<String> inputContent)
+    {
+        ComponentType componentType = component.getType();
+
+        if (componentType == ComponentType.PRE_PROCESSOR)
         {
-                ComponentType componentType = component.getType();
+            if (this.componentInstance instanceof IPreProcessor)
+            {
+                IPreProcessor preProcessor = (IPreProcessor) this.componentInstance;
 
-                if (componentType == ComponentType.PRE_PROCESSOR)
-                {
-                        if (this.componentInstance instanceof IPreProcessor)
-                        {
-                                IPreProcessor preProcessor = (IPreProcessor) this.componentInstance;
-
-                                return preProcessor.PreProcess(inputContent);
-                        }
-                        else
-                        {
-                                // TODO throw exception
-                                // TODO log errors
-                        }
-                }
-
-                return null;
+                return preProcessor.PreProcess(inputContent);
+            }
+            else
+            {
+                // TODO throw exception
+                // TODO log errors
+            }
         }
 
-        public void InitializeComponent(Component component)
+        return null;
+    }
+
+    public void InitializeComponent(Component component)
+    {
+        this.component = component;
+
+        // Create a File object on the root of the directory containing
+        // the class file
+        File file = new File(component.getPath());
+
+        try
         {
-                this.component = component;
+            // Convert File to a URL
+            URL url = file.toURL();
+            URL[] urls = new URL[] { url };
 
-                // Create a File object on the root of the directory containing
-                // the class file
-                File file = new File(component.getPath());
+            // Create a new class loader with the directory
+            ClassLoader loader = new URLClassLoader(urls);
 
-                try
-                {
-                        // Convert File to a URL
-                        URL url = file.toURL();
-                        URL[] urls = new URL[] { url };
-
-                        // Create a new class loader with the directory
-                        ClassLoader loader = new URLClassLoader(urls);
-
-                        // Loading the class
-                        Class componentClass = loader.loadClass(component.getClassName());
-                        this.componentInstance = componentClass.newInstance();
-                }
-                catch (Exception e)
-                {
-                        e.printStackTrace();
-                        // TODO throw exception
-                }
+            // Loading the class
+            Class componentClass = loader.loadClass(component.getClassName());
+            this.componentInstance = componentClass.newInstance();
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            // TODO throw exception
+        }
+    }
 }

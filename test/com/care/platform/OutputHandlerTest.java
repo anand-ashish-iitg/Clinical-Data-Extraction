@@ -17,62 +17,62 @@ import java.util.List;
  */
 public class OutputHandlerTest
 {
-        @Test
-        public void WriteStringToNewFile() throws IOException
+    @Test
+    public void WriteStringToNewFile() throws IOException
+    {
+        String path = "abc.txt";
+        String content = "HelloWorld!";
+
+        Output output = new Output();
+        output.setType(OutputType.FILE);
+        output.setPath(path);
+        output.setGenerateType(GenerateOutputType.STRING);
+
+        OutputHandler handler = new OutputHandler(output);
+        try
         {
-                String path = "abc.txt";
-                String content = "HelloWorld!";
-
-                Output output = new Output();
-                output.setType(OutputType.FILE);
-                output.setPath(path);
-                output.setGenerateType(GenerateOutputType.STRING);
-
-                OutputHandler handler = new OutputHandler(output);
-                try
-                {
-                        handler.WriteStringToFile(content);
-                }
-                catch (IOException e)
-                {
-                        Assert.fail(e.toString());
-                }
-
-                File file = new File(path);
-                FileInputStream fis = new FileInputStream(file);
-                byte[] data = new byte[(int) file.length()];
-                fis.read(data);
-                fis.close();
-
-                String actualContent = new String(data);
-                Assert.assertEquals(content, actualContent);
-
-                new File(path).delete();
+            handler.WriteStringToFile(content);
+        }
+        catch (IOException e)
+        {
+            Assert.fail(e.toString());
         }
 
-        @Test
-        public void testWriteListToFile() throws Exception
+        File file = new File(path);
+        FileInputStream fis = new FileInputStream(file);
+        byte[] data = new byte[(int) file.length()];
+        fis.read(data);
+        fis.close();
+
+        String actualContent = new String(data);
+        Assert.assertEquals(content, actualContent);
+
+        new File(path).delete();
+    }
+
+    @Test
+    public void testWriteListToFile() throws Exception
+    {
+        String path = "abc.txt";
+        List<String> content = new ArrayList<String>();
+        content.add("Yes");
+        content.add("<tag>hello</tag>world");
+
+        Output output = new Output();
+        output.setType(OutputType.FILE);
+        output.setPath(path);
+        output.setGenerateType(GenerateOutputType.LIST);
+
+        OutputHandler handler = new OutputHandler(output);
+        try
         {
-                String path = "abc.txt";
-                List<String> content = new ArrayList<String>();
-                content.add("Yes");
-                content.add("<tag>hello</tag>world");
-
-                Output output = new Output();
-                output.setType(OutputType.FILE);
-                output.setPath(path);
-                output.setGenerateType(GenerateOutputType.LIST);
-
-                OutputHandler handler = new OutputHandler(output);
-                try
-                {
-                        handler.WriteListToFile(content);
-                }
-                catch (IOException e)
-                {
-                        Assert.fail(e.toString());
-                }
-
-                new File(path).delete();
+            handler.WriteListToFile(content);
         }
+        catch (IOException e)
+        {
+            Assert.fail(e.toString());
+        }
+
+        new File(path).delete();
+    }
 }

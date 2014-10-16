@@ -1,0 +1,11 @@
+1. Add Folder Support
+2. Component classes spread across different folders - check
+3. Support for multiple languages - component in other languages
+4. Add default components
+5. GUI
+	- config xml generation
+	- show output in web view
+	- different font color support
+	- display exceptions properly
+6. Test multiple components - JUnit
+7. Add logger library

@@ -14,3 +14,7 @@
 9. Add support of mix of classes + tell all jar files(dependencies) differently
 10. User can give his class file separately and one big jar file containing dependencies[DONE]
 11. Wrap all the exceptions in custom exceptions and handle them properly
+12. Use jdom library everywhere to parse the xml
+13. Update README with proper steps to run
+14. Cleanup the code and do refactoring if required
+15. Document the code properly

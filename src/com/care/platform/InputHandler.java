@@ -4,6 +4,7 @@ import com.care.datatype.Input;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.xml.sax.InputSource;
@@ -29,7 +30,7 @@ public class InputHandler
 
     /**
      * Reads file into a string
-     * 
+     *
      * @return
      * @throws IOException
      */
@@ -42,33 +43,24 @@ public class InputHandler
 
     /**
      * Converts string to List<string> separated by <block></block>
-     * 
-     * @param content
-     *            valid XMLString
+     *
+     * @param content valid XMLString
      * @return List<String>
      */
-    public List<String> ConvertXmlStringToList(String content)
+    public List<String> ConvertXmlStringToList(String content) throws JDOMException, IOException
     {
         List<String> list = new ArrayList<String>();
 
-        try
-        {
-            Document document = new SAXBuilder().build(new InputSource(new StringReader(content)));
+        Document document = new SAXBuilder().build(new InputSource(new StringReader(content)));
 
-            List<Element> rootElements = document.getRootElement().getChildren();
-            for (Element node : rootElements)
-            {
-                if (node.getName().equalsIgnoreCase("block"))
-                {
-                    List<Content> blockContent = node.getContent();
-                    list.add(new XMLOutputter().outputString(blockContent));
-                }
-            }
-        }
-        catch (Exception e)
+        List<Element> rootElements = document.getRootElement().getChildren();
+        for (Element node : rootElements)
         {
-            e.printStackTrace();
-            // TODO throw exception
+            if (node.getName().equalsIgnoreCase("block"))
+            {
+                List<Content> blockContent = node.getContent();
+                list.add(new XMLOutputter().outputString(blockContent));
+            }
         }
 
         return list;

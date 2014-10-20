@@ -7,6 +7,8 @@ import com.care.framework.IPreProcessor;
 import com.google.common.base.Strings;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
@@ -41,7 +43,7 @@ public class PlatformManager
         return null;
     }
 
-    public List<String> DoWork(List<String> inputContent)
+    public List<String> DoWork(List<String> inputContent) throws ComponentException
     {
         ComponentType componentType = component.getType();
 
@@ -55,7 +57,7 @@ public class PlatformManager
             }
             else
             {
-                // TODO throw exception
+                throw new ComponentException("IPreProcessor interface not implemented");
                 // TODO log errors
             }
         }
@@ -64,6 +66,7 @@ public class PlatformManager
     }
 
     public void InitializeClassComponent(Component component)
+            throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException
     {
         this.component = component;
 
@@ -71,71 +74,56 @@ public class PlatformManager
         // the class file
         File file = new File(component.getPath());
 
-        try
+        // Convert File to a URL
+        URL url = file.toURL();
+        URL[] urls;
+        if (Strings.isNullOrEmpty(component.getDependencyPath()))
         {
-            // Convert File to a URL
-            URL url = file.toURL();
-            URL[] urls;
-            if(Strings.isNullOrEmpty(component.getDependencyPath()))
-            {
-                urls = new URL[] { url };
-            }
-            else
-            {
-                urls = new URL[] { new URL("jar:file:" + component.getDependencyPath() + "!/"), url };
-            }
-
-            // Create a new class loader with the directory
-            ClassLoader loader = new URLClassLoader(urls);
-
-            // Loading the class
-            Class componentClass = loader.loadClass(component.getClassName());
-            this.componentInstance = componentClass.newInstance();
+            urls = new URL[]{url};
         }
-        catch (Exception e)
+        else
         {
-            e.printStackTrace();
-            // TODO throw exception
+            urls = new URL[]{new URL("jar:file:" + component.getDependencyPath() + "!/"), url};
         }
+
+        // Create a new class loader with the directory
+        ClassLoader loader = new URLClassLoader(urls);
+
+        // Loading the class
+        Class componentClass = loader.loadClass(component.getClassName());
+        this.componentInstance = componentClass.newInstance();
     }
 
     public void InitializeJarComponent(Component component)
+            throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException
     {
         this.component = component;
 
-        try
+        JarFile jarFile = new JarFile(component.getPath());
+        Enumeration e = jarFile.entries();
+
+        URL[] urls = new URL[]{new URL("jar:file:" + component.getDependencyPath() + "!/")};
+
+        // Create a new class loader with the directory
+        ClassLoader loader = new URLClassLoader(urls);
+
+        // Loading the class
+        while (e.hasMoreElements())
         {
-            JarFile jarFile = new JarFile(component.getPath());
-            Enumeration e = jarFile.entries();
-
-            URL[] urls = new URL[] { new URL("jar:file:" + component.getDependencyPath() + "!/")};
-
-            // Create a new class loader with the directory
-            ClassLoader loader = new URLClassLoader(urls);
-
-            // Loading the class
-            while (e.hasMoreElements())
+            JarEntry je = (JarEntry) e.nextElement();
+            if (je.isDirectory() || !je.getName().endsWith(".class"))
             {
-                JarEntry je = (JarEntry) e.nextElement();
-                if (je.isDirectory() || !je.getName().endsWith(".class"))
-                {
-                    continue;
-                }
-                // -6 because of .class
-                String className = je.getName().substring(0, je.getName().length() - 6);
-                className = className.replace('/', '.');
-
-                if (className.equalsIgnoreCase(component.getClassName()))
-                {
-                    Class componentClass = loader.loadClass(component.getClassName());
-                    this.componentInstance = componentClass.newInstance();
-                }
+                continue;
             }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            // TODO throw exception
+            // -6 because of .class
+            String className = je.getName().substring(0, je.getName().length() - 6);
+            className = className.replace('/', '.');
+
+            if (className.equalsIgnoreCase(component.getClassName()))
+            {
+                Class componentClass = loader.loadClass(component.getClassName());
+                this.componentInstance = componentClass.newInstance();
+            }
         }
     }
 }

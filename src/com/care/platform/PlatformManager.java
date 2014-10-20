@@ -21,6 +21,14 @@ public class PlatformManager
     private Object componentInstance;
     private Component component;
 
+    /**
+     * Calls function which has input
+     * as string
+     *
+     * @param inputContent
+     * @return
+     * @throws ComponentException
+     */
     public List<String> DoWork(String inputContent) throws ComponentException
     {
         ComponentType componentType = component.getType();
@@ -43,6 +51,14 @@ public class PlatformManager
         return null;
     }
 
+    /**
+     * Calls function of the component which
+     * has input as list
+     *
+     * @param inputContent
+     * @return
+     * @throws ComponentException
+     */
     public List<String> DoWork(List<String> inputContent) throws ComponentException
     {
         ComponentType componentType = component.getType();
@@ -65,6 +81,16 @@ public class PlatformManager
         return null;
     }
 
+    /**
+     * Loads the component, class + dependent
+     * jar, and initializes the object
+     *
+     * @param component
+     * @throws MalformedURLException
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public void InitializeClassComponent(Component component)
             throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException
     {
@@ -94,6 +120,16 @@ public class PlatformManager
         this.componentInstance = componentClass.newInstance();
     }
 
+    /**
+     * Initializes jar component and makes the object
+     * of the class
+     *
+     * @param component
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public void InitializeJarComponent(Component component)
             throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException
     {

@@ -29,6 +29,13 @@ public class Main
     private static List<Component> components;
     private static Output output;
 
+    /**
+     * Parses config file to Input, Component
+     * and Output objects
+     *
+     * @param configFilePath
+     * @throws ConfigException
+     */
     private static void ParseConfig(String configFilePath) throws ConfigException
     {
         try
@@ -82,6 +89,11 @@ public class Main
         }
     }
 
+    /**
+     * Parses input file from file to object
+     * @return
+     * @throws InputOutputException
+     */
     private static Object ParseInputFile() throws InputOutputException
     {
         try
@@ -105,6 +117,14 @@ public class Main
         }
     }
 
+    /**
+     * Calls component with proper function and returns
+     * the list returned by the function
+     * @param inputContent
+     * @return
+     * @throws PlatformException
+     * @throws ComponentException
+     */
     private static List<String> StartPlatform(Object inputContent) throws PlatformException, ComponentException
     {
         try
@@ -114,6 +134,7 @@ public class Main
 
             for (int i = 0; i < components.size(); i++)
             {
+                // Loads component class
                 Component component = components.get(i);
                 if (component.getLoadType() == ComponentLoadType.CLASS)
                 {
@@ -124,6 +145,7 @@ public class Main
                     manager.InitializeJarComponent(component);
                 }
 
+                // Calls function accordingly
                 if (i == 0 && input.getParseType() == ParseInputType.STRING)
                 {
                     outputContent = manager.DoWork((String) inputContent);
@@ -152,6 +174,11 @@ public class Main
         }
     }
 
+    /**
+     * Generates output file from List<String>
+     * @param outputContent
+     * @throws InputOutputException
+     */
     private static void GenerateOutputFile(List<String> outputContent) throws InputOutputException
     {
         try

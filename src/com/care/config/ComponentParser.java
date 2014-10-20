@@ -15,6 +15,14 @@ public class ComponentParser
 {
     private static Component component = new Component();
 
+    /**
+     * Parses config file and extracts
+     * list of components object out of it
+     *
+     * @param node
+     * @return
+     * @throws ConfigException
+     */
     public static Component GetComponent(Node node) throws ConfigException
     {
         NodeList children = node.getChildNodes();

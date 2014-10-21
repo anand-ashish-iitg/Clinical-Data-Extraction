@@ -1,6 +1,6 @@
 * Add Folder Support[DONE]
 * Component classes spread across different folders[DONE]
-* Support for multiple languages - component in other languages
+* Support for multiple languages - component in other languages[DONE]
 * Add default components
 * GUI
 	* config xml generation
@@ -18,3 +18,4 @@
 * Update README with proper steps to run
 * Cleanup the code and do refactoring if required
 * Document the code properly
+* Remove warnings from code

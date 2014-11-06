@@ -3,10 +3,8 @@
 3. Support for multiple languages - component in other languages
 4. Add default components
 5. GUI
-	- config xml generation
 	- show output in web view
 	- different font color support
-	- display exceptions properly
 6. Test multiple components - JUnit
 	- complete other tests also
 7. Add logger library
@@ -14,3 +12,6 @@
 9. Add support of mix of classes + tell all jar files(dependencies) differently
 10. User can give his class file separately and one big jar file containing dependencies[DONE]
 11. Wrap all the exceptions in custom exceptions and handle them properly
+12. Output type FOLDER needs to be handled when input type is FILE.
+13. Output as string support to be added - simply concatenate strings in this case.
+14. Load config file in GUI and automatically fill up the corresponding blocks.

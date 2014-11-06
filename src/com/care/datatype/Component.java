@@ -60,4 +60,9 @@ public class Component
     {
         this.dependencyPath = dependencyPath;
     }
+    
+    @Override
+    public String toString(){
+        return this.type +" | "+this.className;
+    }
 }

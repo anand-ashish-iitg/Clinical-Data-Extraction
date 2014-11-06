@@ -48,11 +48,11 @@ public class ComponentParser
             if (childOfInput.getNodeName().equalsIgnoreCase("type"))
             {
                 String type = childOfInput.getTextContent();
-                if (type.equalsIgnoreCase("preprocessor"))
+                if (type.equalsIgnoreCase("pre_processor"))
                 {
                     component.setType(ComponentType.PRE_PROCESSOR);
                 }
-                else if (type.equalsIgnoreCase("deidentifier"))
+                else if (type.equalsIgnoreCase("de_identifier"))
                 {
                     component.setType(ComponentType.DE_IDENTIFIER);
                 }

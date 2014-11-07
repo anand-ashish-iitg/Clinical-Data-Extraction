@@ -19,3 +19,6 @@
 * Cleanup the code and do refactoring if required
 * Document the code properly
 * Remove warnings from code
+* Output type FOLDER needs to be handled when input type is FILE.
+* Output as string support to be added - simply concatenate strings in this case.
+* Load config file in GUI and automatically fill up the corresponding blocks.

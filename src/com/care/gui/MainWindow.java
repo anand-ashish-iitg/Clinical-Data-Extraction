@@ -1,46 +1,24 @@
 package com.care.gui;
 
-import java.awt.EventQueue;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.UUID;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-
 import com.care.datatype.Component;
-import com.care.datatype.ComponentLoadType;
-import com.care.datatype.ComponentType;
 import com.care.datatype.ParseInputType;
-import com.care.exception.ConfigException;
 import com.care.main.Main;
 import com.google.common.base.Strings;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
+
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JMenuItem;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
 
 public class MainWindow
 {
@@ -54,7 +32,7 @@ public class MainWindow
     private JButton btnRemove;
     final JFileChooser fc = new JFileChooser();
     private DefaultListModel<Component> componentListModel = new DefaultListModel();
-    final ParseInputType[] fileSupport = { ParseInputType.STRING, ParseInputType.LIST };
+    final ParseInputType[] fileSupport = {ParseInputType.STRING, ParseInputType.LIST};
 
     /**
      * Launch the application.
@@ -95,16 +73,16 @@ public class MainWindow
         frame.setBounds(100, 100, 520, 369);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(
-                new FormLayout(new ColumnSpec[] { FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
+                new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
                         FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormFactory.UNRELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-                        FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, }, new RowSpec[] { FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,}, new RowSpec[]{FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"),
                         FormFactory.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"), FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.UNRELATED_GAP_ROWSPEC, }));
+                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.UNRELATED_GAP_ROWSPEC,}));
 
         JLabel lblInputFile = new JLabel("Input File/ Folder");
         frame.getContentPane().add(lblInputFile, "2, 2, fill, default");
@@ -251,7 +229,7 @@ public class MainWindow
                 {
                     xml = generateXML();
                     UUID uuid = UUID.randomUUID();
-                    String fileName = String.format(DEFAULT_SAVE_NAME,uuid.toString());
+                    String fileName = String.format(DEFAULT_SAVE_NAME, uuid.toString());
                     PrintWriter writer = new PrintWriter(fileName, "UTF-8");
                     writer.println(xml);
                     writer.close();
@@ -271,10 +249,10 @@ public class MainWindow
 
         JMenu mnFile = new JMenu("File");
         menuBar.add(mnFile);
-        
+
         JMenuItem mntmSave = new JMenuItem("Save");
         mnFile.add(mntmSave);
-        
+
         JMenuItem mntmLoad = new JMenuItem("Load");
         mnFile.add(mntmLoad);
 
@@ -290,11 +268,17 @@ public class MainWindow
         xmlBuilder.append("<input>");
         File f = new File(tfInputFile.getText());
         if (f.exists() && f.isFile())
+        {
             xmlBuilder.append("<type>File</type>");
+        }
         else if (f.exists() && f.isDirectory())
+        {
             xmlBuilder.append("<type>Folder</type>");
+        }
         else
+        {
             throw new IOException("Input file not found");
+        }
         xmlBuilder.append("<path>");
         xmlBuilder.append(tfInputFile.getText());
         xmlBuilder.append("</path>");
@@ -333,9 +317,13 @@ public class MainWindow
         xmlBuilder.append("<output>");
         f = new File(tfOutputFile.getText());
         if (f.exists() && f.isDirectory())
+        {
             xmlBuilder.append("<type>Folder</type>");
+        }
         else
+        {
             xmlBuilder.append("<type>File</type>");
+        }
         xmlBuilder.append("<path>");
         xmlBuilder.append(tfOutputFile.getText());
         xmlBuilder.append("</path>");

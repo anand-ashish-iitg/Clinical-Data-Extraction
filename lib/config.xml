@@ -7,12 +7,12 @@
     <components>
         <component>
             <loadType>class</loadType>
-            <type>preprocessor</type>
+            <type>pre_processor</type>
             <path>bin/resources/</path>
             <className>resources.PreProcessor</className>
         </component>
         <component>
-            <type>preprocessor</type>
+            <type>pre_processor</type>
             <path>bin/resources/</path>
             <className>resources.PreProcessor</className>
         </component>

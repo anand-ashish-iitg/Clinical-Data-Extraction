@@ -3,6 +3,7 @@ package com.care.platform;
 import com.care.datatype.Component;
 import com.care.datatype.ComponentType;
 import com.care.exception.ComponentException;
+import com.care.framework.IDeIdentifier;
 import com.care.framework.IPreProcessor;
 import com.google.common.base.Strings;
 
@@ -48,6 +49,21 @@ public class PlatformManager
             }
         }
 
+        if (componentType == ComponentType.DE_IDENTIFIER)
+        {
+            if (this.componentInstance instanceof IDeIdentifier)
+            {
+                IDeIdentifier deIdentifier = (IDeIdentifier) this.componentInstance;
+
+                return deIdentifier.DeIdentify(inputContent);
+            }
+            else
+            {
+                throw new ComponentException("IDeIdentifier interface not implemented");
+                // TODO log errors
+            }
+        }
+
         return null;
     }
 
@@ -74,6 +90,21 @@ public class PlatformManager
             else
             {
                 throw new ComponentException("IPreProcessor interface not implemented");
+                // TODO log errors
+            }
+        }
+
+        if (componentType == ComponentType.DE_IDENTIFIER)
+        {
+            if (this.componentInstance instanceof IDeIdentifier)
+            {
+                IDeIdentifier deIdentifier = (IDeIdentifier) this.componentInstance;
+
+                return deIdentifier.DeIdentify(inputContent);
+            }
+            else
+            {
+                throw new ComponentException("IDeIdentifier interface not implemented");
                 // TODO log errors
             }
         }

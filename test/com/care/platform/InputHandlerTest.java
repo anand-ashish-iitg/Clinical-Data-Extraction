@@ -83,7 +83,7 @@ public class InputHandlerTest
 
             Assert.assertEquals(4, list.size());
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             Assert.fail(e.toString());
         }

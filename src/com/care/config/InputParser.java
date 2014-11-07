@@ -15,6 +15,14 @@ public class InputParser
 {
     private static Input input = new Input();
 
+    /**
+     * Parses config file and extracts
+     * input object out of it
+     *
+     * @param node
+     * @return
+     * @throws ConfigException
+     */
     public static Input GetInput(Node node) throws ConfigException
     {
         NodeList children = node.getChildNodes();

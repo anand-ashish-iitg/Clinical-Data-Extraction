@@ -3,7 +3,7 @@ package com.care.config;
 import com.care.datatype.Component;
 import com.care.datatype.ComponentLoadType;
 import com.care.datatype.ComponentType;
-import com.care.exception.ComponentException;
+import com.care.exception.ConfigException;
 import com.google.common.base.Strings;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -15,7 +15,15 @@ public class ComponentParser
 {
     private static Component component = new Component();
 
-    public static Component GetComponent(Node node) throws ComponentException
+    /**
+     * Parses config file and extracts
+     * list of components object out of it
+     *
+     * @param node
+     * @return
+     * @throws ConfigException
+     */
+    public static Component GetComponent(Node node) throws ConfigException
     {
         NodeList children = node.getChildNodes();
         for (int j = 0; j < children.getLength(); j++)
@@ -40,7 +48,7 @@ public class ComponentParser
                 }
                 else
                 {
-                    throw new ComponentException(loadType + " : is not supported");
+                    throw new ConfigException(loadType + " : is not supported");
                 }
             }
 
@@ -58,7 +66,7 @@ public class ComponentParser
                 }
                 else
                 {
-                    throw new ComponentException(type + " : is not supported");
+                    throw new ConfigException(type + " : is not supported");
                 }
             }
 
@@ -72,7 +80,7 @@ public class ComponentParser
                 }
                 else
                 {
-                    throw new ComponentException("Path cannot be empty");
+                    throw new ConfigException("Path cannot be empty");
                 }
             }
 
@@ -86,7 +94,7 @@ public class ComponentParser
                 }
                 else
                 {
-                    throw new ComponentException(className + " is not present.");
+                    throw new ConfigException(className + " is not present.");
                 }
             }
 
@@ -100,7 +108,7 @@ public class ComponentParser
                 }
                 else
                 {
-                    throw new ComponentException(dependencyPath + " is not present.");
+                    throw new ConfigException(dependencyPath + " is not present.");
                 }
             }
         }

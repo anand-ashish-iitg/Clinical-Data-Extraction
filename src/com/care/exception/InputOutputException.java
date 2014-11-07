@@ -3,22 +3,22 @@ package com.care.exception;
 /**
  * Created by AMIT on 10/10/14.
  */
-public class IOException extends Exception
+public class InputOutputException extends Exception
 {
     private String message = null;
 
-    public IOException()
+    public InputOutputException()
     {
         super();
     }
 
-    public IOException(String message)
+    public InputOutputException(String message)
     {
         super(message);
         this.message = message;
     }
 
-    public IOException(Throwable cause)
+    public InputOutputException(Throwable cause)
     {
         super(cause);
     }

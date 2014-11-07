@@ -15,6 +15,14 @@ public class OutputParser
 {
     private static Output output = new Output();
 
+    /**
+     * Parses config file and extracts
+     * output object out of it
+     *
+     * @param node
+     * @return
+     * @throws ConfigException
+     */
     public static Output GetOutput(Node node) throws ConfigException
     {
         NodeList children = node.getChildNodes();

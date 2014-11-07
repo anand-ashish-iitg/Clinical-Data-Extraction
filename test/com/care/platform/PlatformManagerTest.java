@@ -2,7 +2,6 @@ package com.care.platform;
 
 import com.care.datatype.Component;
 import com.care.datatype.ComponentType;
-import com.care.exception.ComponentException;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -36,7 +35,7 @@ public class PlatformManagerTest
             Assert.assertEquals(expected, output);
 
         }
-        catch (ComponentException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail(e.getMessage());

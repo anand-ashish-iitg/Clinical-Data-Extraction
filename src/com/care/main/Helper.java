@@ -9,6 +9,13 @@ import java.util.List;
  */
 public class Helper
 {
+    /**
+     * Gets all the file names
+     * inside the folder
+     *
+     * @param folderPath
+     * @return
+     */
     public static List<String> GetFileNames(String folderPath)
     {
         File folder = new File(folderPath);

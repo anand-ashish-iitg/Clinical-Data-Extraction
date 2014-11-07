@@ -6,19 +6,18 @@ import com.care.config.OutputParser;
 import com.care.datatype.*;
 import com.care.exception.ComponentException;
 import com.care.exception.ConfigException;
+import com.care.exception.InputOutputException;
+import com.care.exception.PlatformException;
 import com.care.platform.InputHandler;
 import com.care.platform.OutputHandler;
 import com.care.platform.PlatformManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,105 +29,169 @@ public class Main
     private static List<Component> components;
     private static Output output;
 
-    private static void ParseConfig(String configFilePath) throws ParserConfigurationException, IOException, SAXException, ConfigException, ComponentException
+    /**
+     * Parses config file to Input, Component
+     * and Output objects
+     *
+     * @param configFilePath
+     * @throws ConfigException
+     */
+    private static void ParseConfig(String configFilePath) throws ConfigException
     {
-        DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document doc = docBuilder.parse(new File(configFilePath));
-
-        components = new ArrayList<Component>();
-
-        // Iterating through the nodes and extracting the data.
-        NodeList nodeList = doc.getDocumentElement().getChildNodes();
-        for (int i = 0; i < nodeList.getLength(); i++)
+        try
         {
-            Node node = nodeList.item(i);
+            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(new File(configFilePath));
 
-            // parse input
-            if (node.getNodeName().equalsIgnoreCase("input"))
-            {
-                input = InputParser.GetInput(node);
-                continue;
-            }
+            components = new ArrayList<Component>();
 
-            // parse main component
-            if (node.getNodeName().equalsIgnoreCase("components"))
+            // Iterating through the nodes and extracting the data.
+            NodeList nodeList = doc.getDocumentElement().getChildNodes();
+            for (int i = 0; i < nodeList.getLength(); i++)
             {
-                NodeList componentList = node.getChildNodes();
-                for (int j = 0; j < componentList.getLength(); j++)
+                Node node = nodeList.item(i);
+
+                // parse input
+                if (node.getNodeName().equalsIgnoreCase("input"))
                 {
-                    Node componentNode = componentList.item(j);
-                    if (componentNode.getNodeName().equalsIgnoreCase("component"))
-                    {
-                        components.add(ComponentParser.GetComponent(componentList.item(j)));
-                    }
+                    input = InputParser.GetInput(node);
+                    continue;
                 }
-                continue;
-            }
 
-            // parse the output
-            if (node.getNodeName().equalsIgnoreCase("output"))
-            {
-                output = OutputParser.GetOutput(node);
-                continue;
+                // parse main component
+                if (node.getNodeName().equalsIgnoreCase("components"))
+                {
+                    NodeList componentList = node.getChildNodes();
+                    for (int j = 0; j < componentList.getLength(); j++)
+                    {
+                        Node componentNode = componentList.item(j);
+                        if (componentNode.getNodeName().equalsIgnoreCase("component"))
+                        {
+                            components.add(ComponentParser.GetComponent(componentList.item(j)));
+                        }
+                    }
+                    continue;
+                }
+
+                // parse the output
+                if (node.getNodeName().equalsIgnoreCase("output"))
+                {
+                    output = OutputParser.GetOutput(node);
+                    continue;
+                }
             }
+        }
+        catch (Exception e)
+        {
+            // TODO log stack trace
+            throw new ConfigException(e.getMessage());
         }
     }
 
-    private static Object ParseInputFile() throws Exception
+    /**
+     * Parses input file from file to object
+     * @return
+     * @throws InputOutputException
+     */
+    private static Object ParseInputFile() throws InputOutputException
     {
-        InputHandler inputHandler = new InputHandler(input);
-
-        String inputContent = inputHandler.ReadFile();
-        if (input.getParseType() == ParseInputType.LIST)
+        try
         {
-            return inputHandler.ConvertXmlStringToList(inputContent);
-        }
-        else
-        {
-            return inputContent;
-        }
-    }
+            InputHandler inputHandler = new InputHandler(input);
 
-    private static List<String> StartPlatform(Object inputContent) throws Exception
-    {
-        PlatformManager manager = new PlatformManager();
-        List<String> outputContent = null;
-
-        for (int i = 0; i < components.size(); i++)
-        {
-            Component component = components.get(i);
-            if (component.getLoadType() == ComponentLoadType.CLASS)
+            String inputContent = inputHandler.ReadFile();
+            if (input.getParseType() == ParseInputType.LIST)
             {
-                manager.InitializeClassComponent(component);
-            }
-            else if (component.getLoadType() == ComponentLoadType.JAR)
-            {
-                manager.InitializeJarComponent(component);
-            }
-
-            if (i == 0 && input.getParseType() == ParseInputType.STRING)
-            {
-                outputContent = manager.DoWork((String) inputContent);
-            }
-            else if (i == 0 && input.getParseType() == ParseInputType.LIST)
-            {
-                outputContent = manager.DoWork((List<String>) inputContent);
+                return inputHandler.ConvertXmlStringToList(inputContent);
             }
             else
             {
-                outputContent = manager.DoWork((List<String>) outputContent);
+                return inputContent;
             }
         }
-
-        return outputContent;
+        catch (Exception e)
+        {
+            // TODO log stack trace
+            throw new InputOutputException(e.getMessage());
+        }
     }
 
-    private static void GenerateOutputFile(List<String> outputContent) throws Exception
+    /**
+     * Calls component with proper function and returns
+     * the list returned by the function
+     * @param inputContent
+     * @return
+     * @throws PlatformException
+     * @throws ComponentException
+     */
+    private static List<String> StartPlatform(Object inputContent) throws PlatformException, ComponentException
     {
-        OutputHandler outputHandler = new OutputHandler(output);
+        try
+        {
+            PlatformManager manager = new PlatformManager();
+            List<String> outputContent = null;
 
-        outputHandler.WriteListToFile(outputContent);
+            for (int i = 0; i < components.size(); i++)
+            {
+                // Loads component class
+                Component component = components.get(i);
+                if (component.getLoadType() == ComponentLoadType.CLASS)
+                {
+                    manager.InitializeClassComponent(component);
+                }
+                else if (component.getLoadType() == ComponentLoadType.JAR)
+                {
+                    manager.InitializeJarComponent(component);
+                }
+
+                // Calls function accordingly
+                if (i == 0 && input.getParseType() == ParseInputType.STRING)
+                {
+                    outputContent = manager.DoWork((String) inputContent);
+                }
+                else if (i == 0 && input.getParseType() == ParseInputType.LIST)
+                {
+                    outputContent = manager.DoWork((List<String>) inputContent);
+                }
+                else
+                {
+                    outputContent = manager.DoWork((List<String>) outputContent);
+                }
+            }
+
+            return outputContent;
+        }
+        catch (ComponentException e)
+        {
+            // TODO log stack trace
+            throw e;
+        }
+        catch (Exception e)
+        {
+            // TODO log stack trace
+            throw new PlatformException(e.getMessage());
+        }
+    }
+
+    /**
+     * Generates output file from List<String>
+     * @param outputContent
+     * @throws InputOutputException
+     */
+    private static void GenerateOutputFile(List<String> outputContent) throws InputOutputException
+    {
+        try
+        {
+            OutputHandler outputHandler = new OutputHandler(output);
+
+            outputHandler.WriteListToFile(outputContent);
+        }
+        catch (Exception e)
+        {
+            // TODO log stack trace
+            throw new InputOutputException(e.getMessage());
+        }
     }
 
     public static void main(String[] args)

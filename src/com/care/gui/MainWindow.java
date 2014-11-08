@@ -250,11 +250,14 @@ public class MainWindow
         JMenu mnFile = new JMenu("File");
         menuBar.add(mnFile);
 
-        JMenuItem mntmSave = new JMenuItem("Save");
-        mnFile.add(mntmSave);
-
         JMenuItem mntmLoad = new JMenuItem("Load");
         mnFile.add(mntmLoad);
+        
+        JMenuItem mntmSave = new JMenuItem("Save As");
+        mnFile.add(mntmSave);
+        
+        JMenuItem mntmExit = new JMenuItem("Exit");
+        mnFile.add(mntmExit);
 
         JMenu mnAbout = new JMenu("About");
         menuBar.add(mnAbout);

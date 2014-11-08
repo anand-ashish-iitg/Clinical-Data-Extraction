@@ -7,6 +7,9 @@ Dependencies
 * guava-18.0
 * jdom-2.0.5
 * junit-4.10
+* hamcrest-core-1.3.jar
+* gtk-4.1.jar
+* forms-1.3.0.jar
 
 How to Run?
 ------------

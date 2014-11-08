@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
  */
 public class ComponentParser
 {
-    private static Component component = new Component();
 
     /**
      * Parses config file and extracts
@@ -25,6 +24,7 @@ public class ComponentParser
      */
     public static Component GetComponent(Node node) throws ConfigException
     {
+        Component component = new Component();
         NodeList children = node.getChildNodes();
         for (int j = 0; j < children.getLength(); j++)
         {

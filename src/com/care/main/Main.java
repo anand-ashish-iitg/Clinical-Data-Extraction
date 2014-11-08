@@ -68,7 +68,7 @@ public class Main
                         Node componentNode = componentList.item(j);
                         if (componentNode.getNodeName().equalsIgnoreCase("component"))
                         {
-                            components.add(ComponentParser.GetComponent(componentList.item(j)));
+                            components.add(ComponentParser.GetComponent(componentNode));
                         }
                     }
                     continue;
@@ -209,6 +209,7 @@ public class Main
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             // TODO properly display exception message and stack
             // trace somewhere
         }

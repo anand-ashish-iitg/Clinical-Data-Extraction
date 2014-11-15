@@ -8,16 +8,25 @@ import com.care.exception.ComponentException;
 import com.care.exception.ConfigException;
 import com.care.exception.InputOutputException;
 import com.care.exception.PlatformException;
+import com.care.html.HTMLGenerator;
 import com.care.platform.InputHandler;
 import com.care.platform.OutputHandler;
 import com.care.platform.PlatformManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +39,8 @@ public class Main
     private static Output output;
 
     /**
-     * Parses config file to Input, Component
-     * and Output objects
-     *
+     * Parses config file to Input, Component and Output objects
+     * 
      * @param configFilePath
      * @throws ConfigException
      */
@@ -91,6 +99,7 @@ public class Main
 
     /**
      * Parses input file from file to object
+     * 
      * @return
      * @throws InputOutputException
      */
@@ -118,8 +127,9 @@ public class Main
     }
 
     /**
-     * Calls component with proper function and returns
-     * the list returned by the function
+     * Calls component with proper function and returns the list returned by the
+     * function
+     * 
      * @param inputContent
      * @return
      * @throws PlatformException
@@ -176,6 +186,7 @@ public class Main
 
     /**
      * Generates output file from List<String>
+     * 
      * @param outputContent
      * @throws InputOutputException
      */
@@ -239,6 +250,7 @@ public class Main
                 File outputFile = new File(outputFolderPath, filename);
                 output.setPath(outputFile.getPath());
                 GenerateOutputFile(stringList);
+                GenerateHTMLOutputFile(outputFile.getPath());
             }
         }
         else
@@ -247,11 +259,20 @@ public class Main
             Object content = ParseInputFile();
 
             // Starting the platform
-            List<String> output = StartPlatform(content);
+            List<String> outputList = StartPlatform(content);
 
             // Write the output in the required format
-            GenerateOutputFile(output);
+            GenerateOutputFile(outputList);
+            GenerateHTMLOutputFile(output.getPath());
         }
 
+    }
+
+    private static void GenerateHTMLOutputFile(String path) throws SAXException, IOException, ParserConfigurationException
+    {
+        String htmlContent = HTMLGenerator.getHTML(path);
+        PrintWriter writer = new PrintWriter(Helper.GetFolderName(path)+"/"+Helper.GetFileName(path)+".html");
+        writer.println(htmlContent);
+        writer.close();
     }
 }

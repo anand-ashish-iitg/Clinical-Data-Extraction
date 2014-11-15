@@ -30,6 +30,7 @@ public class MainWindow
     private JComboBox cbInputType;
     private JComboBox cbOutputType;
     private JButton btnRemove;
+    private ImageIcon folder = new ImageIcon(getClass().getResource("folder.png"));
     final JFileChooser fc = new JFileChooser();
     private DefaultListModel<Component> componentListModel = new DefaultListModel();
     final ParseInputType[] fileSupport = {ParseInputType.STRING, ParseInputType.LIST};
@@ -73,16 +74,48 @@ public class MainWindow
         frame.setBounds(100, 100, 520, 369);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(
-                new FormLayout(new ColumnSpec[]{FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
-                        FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormFactory.UNRELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-                        FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,}, new RowSpec[]{FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"),
-                        FormFactory.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"), FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC, FormFactory.UNRELATED_GAP_ROWSPEC,}));
+                new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.UNRELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.GLUE_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.UNRELATED_GAP_ROWSPEC,}));
 
         JLabel lblInputFile = new JLabel("Input File/ Folder");
         frame.getContentPane().add(lblInputFile, "2, 2, fill, default");
@@ -91,7 +124,7 @@ public class MainWindow
         frame.getContentPane().add(tfInputFile, "6, 2, 3, 1, fill, default");
         tfInputFile.setColumns(10);
 
-        JButton btnInputFile = new JButton("");
+        JButton btnInputFile = new JButton(folder);
         btnInputFile.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -110,7 +143,7 @@ public class MainWindow
                 }
             }
         });
-        frame.getContentPane().add(btnInputFile, "9, 2");
+        frame.getContentPane().add(btnInputFile, "11, 2");
 
         JLabel lblFileType = new JLabel("Input Type");
         frame.getContentPane().add(lblFileType, "2, 4");
@@ -119,7 +152,7 @@ public class MainWindow
         frame.getContentPane().add(cbInputType, "6, 4, 3, 1, fill, default");
 
         JSeparator separator = new JSeparator();
-        frame.getContentPane().add(separator, "2, 6, 8, 1");
+        frame.getContentPane().add(separator, "2, 6, 10, 1");
 
         JLabel lblComponents = new JLabel("Components");
         frame.getContentPane().add(lblComponents, "2, 8");
@@ -175,7 +208,7 @@ public class MainWindow
         frame.getContentPane().add(btnRemove, "8, 12");
 
         JSeparator separator_1 = new JSeparator();
-        frame.getContentPane().add(separator_1, "2, 18, 8, 1");
+        frame.getContentPane().add(separator_1, "2, 18, 10, 1");
 
         JLabel lblOutputFolder = new JLabel("Output Folder");
         frame.getContentPane().add(lblOutputFolder, "2, 20");
@@ -184,7 +217,7 @@ public class MainWindow
         frame.getContentPane().add(tfOutputFile, "6, 20, 3, 1, fill, top");
         tfOutputFile.setColumns(10);
 
-        JButton btnOutputFolder = new JButton("");
+        JButton btnOutputFolder = new JButton(folder);
         btnOutputFolder.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -198,7 +231,7 @@ public class MainWindow
                 }
             }
         });
-        frame.getContentPane().add(btnOutputFolder, "9, 20");
+        frame.getContentPane().add(btnOutputFolder, "11, 20");
 
         JLabel lblOutputType = new JLabel("Output Type");
         frame.getContentPane().add(lblOutputType, "2, 22");
@@ -207,7 +240,7 @@ public class MainWindow
         frame.getContentPane().add(cbOutputType, "6, 22, 3, 1, fill, default");
 
         JSeparator separator_2 = new JSeparator();
-        frame.getContentPane().add(separator_2, "2, 24, 8, 1");
+        frame.getContentPane().add(separator_2, "2, 24, 10, 1");
 
         JButton btnCancel = new JButton("Cancel");
         btnCancel.addActionListener(new ActionListener()

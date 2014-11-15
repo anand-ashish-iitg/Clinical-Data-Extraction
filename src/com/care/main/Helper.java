@@ -29,4 +29,20 @@ public class Helper
 
         return fileNames;
     }
+    
+    public static String GetFileName(String filePath){
+        File file = new File(filePath); 
+        String name = file.getName();
+        int pos = name.lastIndexOf(".");
+        if (pos > 0) {
+            name = name.substring(0, pos);
+        }
+        return name;
+    }
+    
+    public static String GetFolderName(String filePath){
+        File file = new File(filePath); 
+        String parentPath = file.getAbsoluteFile().getParent();
+        return parentPath;
+    }
 }

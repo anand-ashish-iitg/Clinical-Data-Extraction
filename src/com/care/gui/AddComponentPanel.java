@@ -10,6 +10,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ public class AddComponentPanel extends JPanel
     private JComboBox cbLoadType;
     private JComboBox cbComponentType;
     final JFileChooser fc = new JFileChooser();
+    private ImageIcon folder = new ImageIcon(getClass().getResource("folder.png"));
     final ComponentLoadType[] componentLoadSupport = { ComponentLoadType.CLASS, ComponentLoadType.JAR };
     final ComponentType[] componentTypeSupport = { ComponentType.PRE_PROCESSOR, ComponentType.DE_IDENTIFIER };
     private JTextField tfClassName;
@@ -40,14 +42,45 @@ public class AddComponentPanel extends JPanel
     public AddComponentPanel(JFrame frame)
     {
         parentFrame = frame;
-        setLayout(new FormLayout(new ColumnSpec[] { FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
-                FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,
-                FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
-                FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC,
-                FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
-                FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC, FormFactory.UNRELATED_GAP_COLSPEC, }, new RowSpec[] { FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, }));
+        setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.DEFAULT_COLSPEC,
+                FormFactory.RELATED_GAP_COLSPEC,
+                FormFactory.GLUE_COLSPEC,
+                FormFactory.UNRELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,}));
 
         JLabel lblClassPath = new JLabel("Class Path");
         add(lblClassPath, "2, 2");
@@ -56,7 +89,7 @@ public class AddComponentPanel extends JPanel
         add(tfClassPath, "6, 2, 19, 1, fill, default");
         tfClassPath.setColumns(10);
 
-        JButton btnClassPath = new JButton("");
+        JButton btnClassPath = new JButton(folder);
         btnClassPath.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -83,7 +116,7 @@ public class AddComponentPanel extends JPanel
         add(tfJarPath, "6, 4, 19, 1, fill, default");
         tfJarPath.setColumns(10);
 
-        JButton btnJarPath = new JButton("");
+        JButton btnJarPath = new JButton(folder);
         btnJarPath.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

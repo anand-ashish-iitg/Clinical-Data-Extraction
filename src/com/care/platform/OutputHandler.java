@@ -46,7 +46,7 @@ public class OutputHandler
      * @param content
      *            list of XMLStrings
      */
-    public void WriteListToFile(List<String> content) throws IOException
+    public void WriteListToFileAsXml(List<String> content) throws IOException
     {
         File file = new File(output.getPath());
         if (!file.exists())
@@ -61,6 +61,32 @@ public class OutputHandler
         for (String line : content)
         {
             bw.append("<block>" + line + "</block>");
+        }
+        bw.append("</output>");
+
+        bw.close();
+    }
+
+    /**
+     * Writes List<string> to a file
+     *
+     * @param content list of XMLStrings
+     */
+    public void WriteListToFileAsString(List<String> content) throws IOException
+    {
+        File file = new File(output.getPath());
+        if (!file.exists())
+        {
+            file.createNewFile();
+        }
+
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        bw.append("<output>");
+        for (String line : content)
+        {
+            bw.append(line + " ");
         }
         bw.append("</output>");
 

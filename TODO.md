@@ -22,3 +22,4 @@
 * Output type FOLDER needs to be handled when input type is FILE.
 * Output as string support to be added - simply concatenate strings in this case.
 * Load config file in GUI and automatically fill up the corresponding blocks.
+* HTML Generator - instead of table should be in text form

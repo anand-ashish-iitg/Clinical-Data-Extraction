@@ -66,7 +66,7 @@ public class OutputHandlerTest
         OutputHandler handler = new OutputHandler(output);
         try
         {
-            handler.WriteListToFile(content);
+            handler.WriteListToFileAsXml(content);
         }
         catch (IOException e)
         {

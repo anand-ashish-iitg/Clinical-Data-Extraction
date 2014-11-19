@@ -22,9 +22,8 @@ public class OutputHandler
 
     /**
      * Writes string to a file
-     * 
-     * @param content
-     *            String
+     *
+     * @param content String
      */
     public void WriteStringToFile(String content) throws IOException
     {
@@ -42,9 +41,8 @@ public class OutputHandler
 
     /**
      * Writes List<string> to a file separated by <block></block>
-     * 
-     * @param content
-     *            list of XMLStrings
+     *
+     * @param content list of XMLStrings
      */
     public void WriteListToFileAsXml(List<String> content) throws IOException
     {
@@ -83,12 +81,10 @@ public class OutputHandler
         FileWriter fw = new FileWriter(file.getAbsoluteFile());
         BufferedWriter bw = new BufferedWriter(fw);
 
-        bw.append("<output>");
         for (String line : content)
         {
             bw.append(line + " ");
         }
-        bw.append("</output>");
 
         bw.close();
     }

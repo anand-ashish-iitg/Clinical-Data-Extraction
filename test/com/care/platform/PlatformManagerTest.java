@@ -1,12 +1,14 @@
 package com.care.platform;
 
-import com.care.datatype.Component;
-import com.care.datatype.ComponentType;
-import junit.framework.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import com.care.datatype.Component;
+import com.care.datatype.ComponentType;
 
 /**
  * Created by AMIT on 8/10/14.
@@ -22,13 +24,15 @@ public class PlatformManagerTest
         component.setClassName("resources.PreProcessor");
 
         String inputContent = "Hello";
+        
+        String outputPath="";
 
         try
         {
             PlatformManager manager = new PlatformManager();
             manager.InitializeClassComponent(component);
             List<String> output = null;
-            output = manager.DoWork(inputContent);
+            output = manager.DoWork(inputContent,outputPath);
 
             List<String> expected = new ArrayList<String>(1);
             expected.add(inputContent);

@@ -1,9 +1,9 @@
 package resources;
 
-import com.care.framework.IPreProcessor;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.care.framework.IPreProcessor;
 
 public class PreProcessor implements IPreProcessor
 {

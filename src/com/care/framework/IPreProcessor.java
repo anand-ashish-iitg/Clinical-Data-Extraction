@@ -1,8 +1,8 @@
 package com.care.framework;
 
-import com.care.exception.ComponentException;
-
 import java.util.List;
+
+import com.care.exception.ComponentException;
 
 public interface IPreProcessor
 {

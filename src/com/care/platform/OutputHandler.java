@@ -1,12 +1,16 @@
 package com.care.platform;
 
-import com.care.datatype.Output;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import org.freedesktop.bindings.Environment;
+
+import com.care.datatype.Output;
+import com.google.common.html.HtmlEscapers;
+import com.google.common.xml.XmlEscapers;
 
 /**
  * Created by AMIT on 8/10/14.
@@ -58,7 +62,7 @@ public class OutputHandler
         bw.append("<output>");
         for (String line : content)
         {
-            bw.append("<block>" + line + "</block>");
+            bw.append("<block>" + XmlEscapers.xmlContentEscaper().escape(line) + "</block>\n");
         }
         bw.append("</output>");
 

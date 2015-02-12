@@ -5,5 +5,5 @@ package com.care.datatype;
  */
 public enum ComponentType
 {
-    PRE_PROCESSOR, DE_IDENTIFIER;
+    STOP_WORD_REMOVER, STEMMER, TOKENIZER, DICTIONARY_BUILDER, PRE_PROCESSOR, DE_IDENTIFIER;
 }

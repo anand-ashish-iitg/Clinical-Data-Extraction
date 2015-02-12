@@ -1,25 +1,25 @@
 package com.care.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.care.datatype.Component;
 import com.care.datatype.ComponentLoadType;
 import com.care.datatype.ComponentType;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.File;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class AddComponentPanel extends JPanel
 {
@@ -29,8 +29,8 @@ public class AddComponentPanel extends JPanel
     private JComboBox cbComponentType;
     final JFileChooser fc = new JFileChooser();
     private ImageIcon folder = new ImageIcon(getClass().getResource("folder.png"));
-    final ComponentLoadType[] componentLoadSupport = { ComponentLoadType.CLASS, ComponentLoadType.JAR };
-    final ComponentType[] componentTypeSupport = { ComponentType.PRE_PROCESSOR, ComponentType.DE_IDENTIFIER };
+    final ComponentLoadType[] componentLoadSupport = ComponentLoadType.values();
+    final ComponentType[] componentTypeSupport = ComponentType.values();
     private JTextField tfClassName;
     private JFrame parentFrame;
 

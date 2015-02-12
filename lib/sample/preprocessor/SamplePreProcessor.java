@@ -1,11 +1,11 @@
 package sample.preprocessor;
 
-import com.care.exception.ComponentException;
-import com.care.framework.IPreProcessor;
-
 import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.care.exception.ComponentException;
+import com.care.framework.IPreProcessor;
 
 /**
  * Created by AMIT on 7/11/14.

@@ -1,12 +1,13 @@
 package com.care.config;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import com.care.datatype.GenerateOutputType;
 import com.care.datatype.Output;
 import com.care.datatype.OutputType;
 import com.care.exception.ConfigException;
 import com.google.common.base.Strings;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Created by AMIT on 7/10/14.

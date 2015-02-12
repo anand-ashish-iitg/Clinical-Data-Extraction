@@ -1,5 +1,31 @@
 package com.care.gui;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import com.care.datatype.Component;
 import com.care.datatype.ParseInputType;
 import com.care.main.Main;
@@ -8,17 +34,6 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.UUID;
 
 public class MainWindow
 {
@@ -340,7 +355,7 @@ public class MainWindow
             if (!Strings.isNullOrEmpty(component.getDependencyPath()))
             {
                 xmlBuilder.append("<dependencyPath>");
-                xmlBuilder.append(component.getPath());
+                xmlBuilder.append(component.getDependencyPath());
                 xmlBuilder.append("</dependencyPath>");
             }
             xmlBuilder.append("<className>");

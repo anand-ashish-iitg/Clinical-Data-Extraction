@@ -1,16 +1,18 @@
 package com.care.platform;
 
-import com.care.datatype.GenerateOutputType;
-import com.care.datatype.Output;
-import com.care.datatype.OutputType;
-import junit.framework.Assert;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import com.care.datatype.GenerateOutputType;
+import com.care.datatype.Output;
+import com.care.datatype.OutputType;
 
 /**
  * Created by AMIT on 8/10/14.

@@ -1,12 +1,13 @@
 package com.care.config;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import com.care.datatype.Component;
 import com.care.datatype.ComponentLoadType;
 import com.care.datatype.ComponentType;
 import com.care.exception.ConfigException;
 import com.google.common.base.Strings;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Created by AMIT on 7/10/14.
@@ -63,6 +64,26 @@ public class ComponentParser
                 else if (type.equalsIgnoreCase("de_identifier"))
                 {
                     component.setType(ComponentType.DE_IDENTIFIER);
+                }
+                else if (type.equalsIgnoreCase("tokenizer"))
+                {
+                    component.setType(ComponentType.TOKENIZER);
+                }
+                else if (type.equalsIgnoreCase("stemmer"))
+                {
+                    component.setType(ComponentType.STEMMER);
+                }
+                else if (type.equalsIgnoreCase("tokenizer"))
+                {
+                    component.setType(ComponentType.TOKENIZER);
+                }
+                else if (type.equalsIgnoreCase("stop_word_remover"))
+                {
+                    component.setType(ComponentType.STOP_WORD_REMOVER);
+                }
+                else if (type.equalsIgnoreCase("dictionary_builder"))
+                {
+                    component.setType(ComponentType.DICTIONARY_BUILDER);
                 }
                 else
                 {

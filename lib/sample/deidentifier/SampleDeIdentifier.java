@@ -1,10 +1,10 @@
 package sample.deidentifier;
 
-import com.care.exception.ComponentException;
-import com.care.framework.IDeIdentifier;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.care.exception.ComponentException;
+import com.care.framework.IDeIdentifier;
 
 /**
  * Created by AMIT on 7/11/14.

@@ -1,9 +1,30 @@
 package com.care.main;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import com.care.config.ComponentParser;
 import com.care.config.InputParser;
 import com.care.config.OutputParser;
-import com.care.datatype.*;
+import com.care.datatype.Component;
+import com.care.datatype.ComponentLoadType;
+import com.care.datatype.GenerateOutputType;
+import com.care.datatype.Input;
+import com.care.datatype.InputType;
+import com.care.datatype.Output;
+import com.care.datatype.ParseInputType;
 import com.care.exception.ComponentException;
 import com.care.exception.ConfigException;
 import com.care.exception.InputOutputException;
@@ -12,19 +33,6 @@ import com.care.html.HTMLGenerator;
 import com.care.platform.InputHandler;
 import com.care.platform.OutputHandler;
 import com.care.platform.PlatformManager;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 // TODO error checking of all strings required
 // TODO handle constant string properly in some library
@@ -131,7 +139,7 @@ public class Main
      * @throws PlatformException
      * @throws ComponentException
      */
-    private static List<String> StartPlatform(Object inputContent) throws PlatformException, ComponentException
+    private static List<String> StartPlatform(Object inputContent, String outputFolderPath) throws PlatformException, ComponentException
     {
         try
         {
@@ -154,15 +162,15 @@ public class Main
                 // Calls function accordingly
                 if (i == 0 && input.getParseType() == ParseInputType.STRING)
                 {
-                    outputContent = manager.DoWork((String) inputContent);
+                    outputContent = manager.DoWork((String) inputContent, outputFolderPath);
                 }
                 else if (i == 0 && input.getParseType() == ParseInputType.LIST)
                 {
-                    outputContent = manager.DoWork((List<String>) inputContent);
+                    outputContent = manager.DoWork((List<String>) inputContent, outputFolderPath);
                 }
                 else
                 {
-                    outputContent = manager.DoWork((List<String>) outputContent);
+                    outputContent = manager.DoWork((List<String>) outputContent, outputFolderPath);
                 }
             }
 
@@ -247,7 +255,7 @@ public class Main
                 Object content = ParseInputFile();
 
                 // Starting the platform
-                List<String> stringList = StartPlatform(content);
+                List<String> stringList = StartPlatform(content, output.getPath());
 
                 // Write the output in the required format
                 File outputFile = new File(outputFolderPath, filename);
@@ -262,7 +270,7 @@ public class Main
             Object content = ParseInputFile();
 
             // Starting the platform
-            List<String> outputList = StartPlatform(content);
+            List<String> outputList = StartPlatform(content, output.getPath());
 
             // Write the output in the required format
             GenerateOutputFile(outputList);
@@ -273,7 +281,8 @@ public class Main
 
     private static void GenerateHTMLOutputFile(String path) throws SAXException, IOException, ParserConfigurationException
     {
-        String htmlContent = HTMLGenerator.getHTML(path);
+        // TODO changed below html function
+        String htmlContent = HTMLGenerator.getDiffHTML(path);
         PrintWriter writer = new PrintWriter(Helper.GetFolderName(path)+"/"+Helper.GetFileName(path)+".html");
         writer.println(htmlContent);
         writer.close();

@@ -1,14 +1,16 @@
 package com.care.platform;
 
-import com.care.datatype.Input;
-import com.care.datatype.InputType;
-import com.care.datatype.ParseInputType;
-import junit.framework.Assert;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import com.care.datatype.Input;
+import com.care.datatype.InputType;
+import com.care.datatype.ParseInputType;
 
 /**
  * Created by AMIT on 8/10/14.

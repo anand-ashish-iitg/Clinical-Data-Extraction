@@ -260,9 +260,12 @@ public class Main
                 // Write the output in the required format
                 File outputFile = new File(outputFolderPath, filename);
                 output.setPath(outputFile.getPath());
+                
                 GenerateOutputFile(stringList);
                 GenerateHTMLOutputFile(outputFile.getPath());
             }
+            
+            System.out.println("Output and HTML File generated!!");
         }
         else
         {
@@ -274,7 +277,10 @@ public class Main
 
             // Write the output in the required format
             GenerateOutputFile(outputList);
+            System.out.println("Output File generated!!");
+            
             GenerateHTMLOutputFile(output.getPath());
+            System.out.println("HTML File generated!!");
         }
 
     }

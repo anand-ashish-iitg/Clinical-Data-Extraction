@@ -184,7 +184,7 @@ public class Main
         catch (Exception e)
         {
             // TODO log stack trace
-            throw new PlatformException(e.getMessage());
+            throw new PlatformException(e);
         }
     }
 
@@ -212,7 +212,7 @@ public class Main
         catch (Exception e)
         {
             // TODO log stack trace
-            throw new InputOutputException(e.getMessage());
+            throw new InputOutputException(e);
         }
     }
 

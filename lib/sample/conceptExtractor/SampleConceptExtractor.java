@@ -1,9 +1,15 @@
 package sample.conceptExtractor;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +28,47 @@ import com.care.framework.IConceptExtractor;
  */
 public class SampleConceptExtractor implements IConceptExtractor
 {
+    private String ParsePropertiesFile(String propertiesLocation)
+    {
+        File file = new File(propertiesLocation);
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            String path = null;
+            
+            while ((line = br.readLine()) != null) {
+                if(line.contains("location"))
+                {
+                    String[] tokens = line.split("=");
+                    path = tokens[1];
+                    break;
+                }
+            }
+            
+            if(path != null)
+            {
+                byte[] encoded = Files.readAllBytes(Paths.get(path));
+                return new String(encoded, Charset.defaultCharset());
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
     public List<String> ExtractConcepts(String data) throws ComponentException
     {
-        String crfLocation;
         List<String> taggedText = new ArrayList<String>();
         try
         {
-            crfLocation = URLDecoder.decode(getClass().getResource("CRF_Model.txt").getFile().toString(), "UTF-8");
+            String crfLocation = URLDecoder.decode(getClass().getResource("CRF_Model.txt").getFile().toString(), "UTF-8");
+            String propertiesLocation = URLDecoder.decode(getClass().getResource("properties.txt").getFile().toString(), "UTF-8");
             File file = new File(crfLocation);
         
-            Sentence s = Sentence.loadFromPiped(null,   "The|B-test review|I-test of|I-test systems|I-test is|O negative|O ,|O except|O as|O above|O .|O \n" +
-                                                        "ALLERGIES|O :|O \n" +  
-                                                        "The|O patient|O has|O no|O known|B-problem drug|I-problem allergies|I-problem .|O  ");
+            Sentence s = Sentence.loadFromPiped(null, this.ParsePropertiesFile(propertiesLocation));
             CRFTagger t = CRFTagger.load(file, null, null);
             t.tag(s);
             

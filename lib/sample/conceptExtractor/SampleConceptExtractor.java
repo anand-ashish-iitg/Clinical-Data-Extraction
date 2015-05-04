@@ -107,6 +107,6 @@ public class SampleConceptExtractor implements IConceptExtractor
 
     public List<String> ExtractConcepts(List<String> data) throws ComponentException
     {
-        return null;
+        return ExtractConcepts((String)null);
     }
 }

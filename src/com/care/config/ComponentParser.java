@@ -85,6 +85,10 @@ public class ComponentParser
                 {
                     component.setType(ComponentType.DICTIONARY_BUILDER);
                 }
+                else if (type.equalsIgnoreCase("concept_extractor"))
+                {
+                    component.setType(ComponentType.CONCEPT_EXTRACTOR);
+                }
                 else
                 {
                     throw new ConfigException(type + " : is not supported");

@@ -19,6 +19,7 @@ import java.util.jar.JarFile;
 import com.care.datatype.Component;
 import com.care.datatype.ComponentType;
 import com.care.exception.ComponentException;
+import com.care.framework.IConceptExtractor;
 import com.care.framework.IDeIdentifier;
 import com.care.framework.IDictionaryBuilder;
 import com.care.framework.IPreProcessor;
@@ -120,10 +121,26 @@ public class PlatformManager
                 // TODO log errors
             }
         }
+        
         if (componentType == ComponentType.DICTIONARY_BUILDER)
         {
             throw new ComponentException("IDictionaryBuilder interface not implemented");
             // TODO log errors
+        }
+        
+        if (componentType == ComponentType.CONCEPT_EXTRACTOR)
+        {
+            if (this.componentInstance instanceof IConceptExtractor)
+            {
+                IConceptExtractor conceptExtractor = (IConceptExtractor) this.componentInstance;
+
+                return conceptExtractor.ExtractConcepts(inputContent);
+            }
+            else
+            {
+                throw new ComponentException("IConceptExtractor interface not implemented");
+                // TODO log errors
+            }
         }
 
         return null;
@@ -215,6 +232,7 @@ public class PlatformManager
                 // TODO log errors
             }
         }
+        
         if (componentType == ComponentType.DICTIONARY_BUILDER)
         {
             if (this.componentInstance instanceof IDictionaryBuilder)
@@ -248,6 +266,21 @@ public class PlatformManager
             else
             {
                 throw new ComponentException("IDictionaryBuilder interface not implemented");
+                // TODO log errors
+            }
+        }
+        
+        if (componentType == ComponentType.CONCEPT_EXTRACTOR)
+        {
+            if (this.componentInstance instanceof IConceptExtractor)
+            {
+                IConceptExtractor conceptExtractor = (IConceptExtractor) this.componentInstance;
+
+                return conceptExtractor.ExtractConcepts(inputContent);
+            }
+            else
+            {
+                throw new ComponentException("IConceptExtractor interface not implemented");
                 // TODO log errors
             }
         }

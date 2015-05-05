@@ -91,12 +91,29 @@ public class HTMLGenerator
         
         // Iterating through the nodes and extracting the data.
         NodeList nodeList = doc.getDocumentElement().getChildNodes();
-        StringBuilder htmlContent =new StringBuilder();
+        StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<html><link href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css\" rel=\"stylesheet\">");
         htmlContent.append("<body><div class=\"container\">");
-        htmlContent.append("<p><font color=\"red\">NAME</font></br>");
-        htmlContent.append("<font color=\"green\">PLACE</font></br>");
+        
+        // COLOR KEY
+        htmlContent.append("<p><font color=\"red\">PROBLEM</font></br>");
+        htmlContent.append("<font color=\"blue\">TREATMENT</font></br>");
+        htmlContent.append("<font color=\"green\">TEST</font></br>");
         htmlContent.append("<font color=\"black\">NONE</font></br></p>");
+        
+        htmlContent.append("<p><font color=\"brown\">PATIENT</font></br>");
+        htmlContent.append("<font color=\"cadetblue\">DOCTOR</font></br>");
+        htmlContent.append("<font color=\"chartreuse \">ID</font></br>");
+        htmlContent.append("<p><font color=\"darkslateblue\">AGE</font></br>");
+        htmlContent.append("<font color=\"darkviolet\">DATE</font></br>");
+        htmlContent.append("<font color=\"forestgreen\">LOCATION</font></br>");
+        htmlContent.append("<p><font color=\"hotpink\">HOSPITAL</font></br>");
+        htmlContent.append("<font color=\"lightblue\">PHONE</font></br>");
+
+        // CSS FORMATTING
+        htmlContent.append("<style>problem{color:red} treatment{color:blue} test{color:green}</style>");
+        htmlContent.append("<style>patient{color:brown} doctor{color:cadetblue} id{color:chartreuse} age{color:darkslateblue} date{color:darkviolet} location{color:forestgreen} hospital{color:hotpink} phone{color:lightblue}</style>");
+
         htmlContent.append("<p>");
         for (int i = 0; i < nodeList.getLength(); i++)
         {
@@ -109,28 +126,17 @@ public class HTMLGenerator
                 {
                     // change font tag to span
                     Node tagNode = tagList.item(j);
-                    if (tagNode.getNodeName().equalsIgnoreCase("name"))
-                    {
-                        tableRow +=" <font color=\"red\">" + tagNode.getTextContent() 
-                                +"</font> ";
-                    }
-                    else if (tagNode.getNodeName().equalsIgnoreCase("place"))
-                    {
-                        tableRow +=" <font color=\"green\">" + tagNode.getTextContent() 
-                                +"</font> ";
-                    }
-                    else
-                    {
-                        tableRow +=" <font color=\"black\">" + tagNode.getTextContent() 
-                                +"</font> ";
-                    }
+                    tableRow +=" <span>" + tagNode.getTextContent() + "</span> ";
                 }
                 htmlContent.append(tableRow);
             }
         }
         htmlContent.append("</p></div></body>");
+        
+        // JAVASCRIPT
         htmlContent.append("<script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js\"></script>");
         htmlContent.append("<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js\"></script>");
+        
         htmlContent.append("</html>");
         
         return htmlContent.toString();

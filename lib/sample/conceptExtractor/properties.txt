@@ -1,0 +1,2 @@
+type=file
+location=C:/Users/amit/Desktop/newconcept_p/105732749.txt

@@ -172,10 +172,10 @@ public class ArffBuilder
     {
         List<Instance> instances = new ArrayList<Instance>();
         List<Word> words = generateWords(tokens);
-        for (Word word : words)
+        /*for (Word word : words)
         {
             instances.add(getWekaData(word));
-        }
+        }*/
         return instances;
     }
 
@@ -196,9 +196,9 @@ public class ArffBuilder
         lastNWords.add(null);
         lastNWords.add(null);
         lastNWords.add(null);
-        nextNWords.add(words.get(1));
-        nextNWords.add(words.get(2));
-        nextNWords.add(words.get(3));
+        nextNWords.add(words.size() > 2 ? words.get(1) : null);
+        nextNWords.add(words.size() > 3 ? words.get(2) : null);
+        nextNWords.add(words.size() > 4 ? words.get(3) : null);
         List<Instance> instances = new ArrayList<Instance>();
         String lastHeader = "";
         Integer lastPos = Integer.MIN_VALUE;
@@ -335,7 +335,8 @@ public class ArffBuilder
         String headers[] = Constants.HEADERS;
         ArffBuilder process = new ArffBuilder(3, triggerWords, bigrams, headers);
         ArffSaver saver = new ArffSaver();
-        saver.setInstances(process.getArffInstance("train.xml"));
+        String trainFile = URLDecoder.decode(ArffBuilder.class.getResource("train.xml").getFile().toString(), "UTF-8");
+        saver.setInstances(process.getArffInstance(trainFile));
         saver.setFile(new File("train.arff"));
         saver.writeBatch();
         /*

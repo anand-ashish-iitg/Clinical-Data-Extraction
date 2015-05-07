@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,14 +79,15 @@ public class DeIdentifier implements IDeIdentifier
         ObjectInputStream objectInputStream;
         try
         {
-            objectInputStream = new ObjectInputStream(new FileInputStream("de-id-j48.bin"));
+            String model = URLDecoder.decode(getClass().getResource("de-id-j48.bin").getFile().toString(), "UTF-8");
+            objectInputStream = new ObjectInputStream(new FileInputStream(model));
             J48 j48 = (J48) objectInputStream.readObject();
             objectInputStream.close();
             return classify(j48, data);
         }
         catch (Exception e)
         {
-            throw new ComponentException("Classifer not found");
+            throw new ComponentException(e.getMessage());
         }
         
     }
@@ -94,7 +96,7 @@ public class DeIdentifier implements IDeIdentifier
     {
         DeIdentifier deIdentifier = new DeIdentifier();
 //        System.out.println("Start");
-//        deIdentifier.writeClassifier("de-id-j48.bin", "train_s.xml");
+//        deIdentifier.writeClassifier("de-id-j48.bin", "train.xml");
 //        System.out.println("Done");
         List<String> data = new ArrayList<String>();
         List<String> result = deIdentifier.DeIdentify( data);

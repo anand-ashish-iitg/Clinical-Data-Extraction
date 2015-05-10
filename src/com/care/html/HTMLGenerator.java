@@ -101,9 +101,19 @@ public class HTMLGenerator
         htmlContent.append("<font color=\"green\">TEST</font></br>");
         htmlContent.append("<font color=\"black\">NONE</font></br></p>");
         
+        htmlContent.append("<p><font color=\"brown\">PATIENT</font></br>");
+        htmlContent.append("<font color=\"cadetblue\">DOCTOR</font></br>");
+        htmlContent.append("<font color=\"chartreuse \">ID</font></br>");
+        htmlContent.append("<p><font color=\"darkslateblue\">AGE</font></br>");
+        htmlContent.append("<font color=\"darkviolet\">DATE</font></br>");
+        htmlContent.append("<font color=\"forestgreen\">LOCATION</font></br>");
+        htmlContent.append("<p><font color=\"hotpink\">HOSPITAL</font></br>");
+        htmlContent.append("<font color=\"lightblue\">PHONE</font></br>");
+
         // CSS FORMATTING
         htmlContent.append("<style>problem{color:red} treatment{color:blue} test{color:green}</style>");
-        
+        htmlContent.append("<style>patient{color:brown} doctor{color:cadetblue} id{color:chartreuse} age{color:darkslateblue} date{color:darkviolet} location{color:forestgreen} hospital{color:hotpink} phone{color:lightblue}</style>");
+
         htmlContent.append("<p>");
         for (int i = 0; i < nodeList.getLength(); i++)
         {

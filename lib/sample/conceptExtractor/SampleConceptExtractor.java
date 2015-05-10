@@ -61,6 +61,7 @@ public class SampleConceptExtractor implements IConceptExtractor
     
     public List<String> ExtractConcepts(String data) throws ComponentException
     {
+        System.setErr(null);
         List<String> taggedText = new ArrayList<String>();
         try
         {

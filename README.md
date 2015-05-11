@@ -4,12 +4,26 @@ Software suite in JAVA to extract key information from medical discharge summari
 
 Dependencies
 -------------
-* guava-18.0
-* jdom-2.0.5
-* junit-4.10
-* hamcrest-core-1.3.jar
-* gtk-4.1.jar
+* BANNER.jar
 * forms-1.3.0.jar
+* jdom-2.0.5.jar
+* lucene-core-4.10.3.jar
+* opennlp-maxent-3.0.3.jar
+* weka.jar
+* commons-lang3-3.3.2.jar
+* gtk-4.1.jar
+* junit-4.11.jar
+* lucene-snowball-3.0.2.jar
+* opennlp-tools-1.5.3.jar
+* config.xml
+* guava-18.0.jar
+* jwnl-1.3.3.jar
+* lucene-suggest-4.10.3.jar
+* opennlp-uima-1.5.3.jar
+* dragontool.jar
+* hamcrest-core-1.3.jar
+* lucene-analyzers-common-4.10.3.jar
+* mallet.jar
 
 How to Run?
 ------------

@@ -1,6 +1,6 @@
 DE-IDENTIFIER
 =============
-The implementation of de-identifier is inspired from ......
+The implementation of de-identifier is inspired from [State-of-the-Art Anonymization of Medical Records Using an Iterative Machine Learning Framework.](http://www.ncbi.nlm.nih.gov/pubmed/17823086) 
 
 Currently the system supports for de-identification for a list of words only. The corpus needs to be tokenized either by using a tokenizer implemented in the suite or a newly developed one. The tokenizer ouput inside the system looks like <block>TOKEN</block>. The block tags are added automatically by the suite and developer doesn't need to add it manually. To provide direct support for large corpus one must complete the implemenation of the interface in *DeIdentifier.java* in a similar fashion to how it has been done for List of Strings.
 
